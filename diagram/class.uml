@@ -1,0 +1,49 @@
+@startuml
+skinparam monochrome true
+skinparam classAttributeIconSize 0
+hide circle
+
+class User {
+    -username : String
+    -passwort(-hash) : String
+    -vorname : String
+    -nachname : String
+    -dienstnummer : Integer
+    -rolle : Type
+    -email : String
+}
+
+class Type <<enumeration>> {
+    Piloten
+    Bodenpersonal
+    Manager
+    Administartor 
+}
+
+
+class Flugzeug {
+    -flugzeugkenung : String
+    -flugzeugTyp : FlugzeugTyp
+    -anzahlDerBenoetigtenPiloten : Integer
+    -anzahlDerBenoetigtenCrewmitglieder : Integer
+    -anzahlDerPassagierPlaetze : Integer
+}
+
+class FlugzeugType <<enumeration>> {
+    Airbus
+    Boeing
+}
+
+class Flug {
+    -flugnummer : String
+    -iataCode Abflughafen
+    -utcAbflugzeit : Datetime
+    -utcAnkunftzeit : Datetime
+    -datumDesFluges : Datetime
+    -pilots : List
+    -bodenpersonal : List
+    -anzahlDerPassagiere : Integer
+    -eingesetztesFlugzeug : Flugzeug
+}
+
+@enduml

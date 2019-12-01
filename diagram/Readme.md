@@ -12,6 +12,11 @@ The final version will contain everything we do and did.
 
 Here you can see our rough Class Diagram (this will change in the near future, it's only a rough version)
 
+![Class Diagram](./class.svg)
+
+This is a rough estimate what the classes will look like and will be ajusted on the fly. Dont consider it as final
+
+
 
 
 
