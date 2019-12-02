@@ -13,6 +13,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * Spring boot application. Execute maven with <code>mvn spring-boot:run</code>
@@ -28,6 +29,15 @@ public class Main extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
+
+        /**
+         * To give out the coded Password
+         *
+         * BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+         * System.out.println(bc.encode("passwd"));
+        */
+
+
     }
 
     @Override
