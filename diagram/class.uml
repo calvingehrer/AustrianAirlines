@@ -1,6 +1,7 @@
 @startuml
 skinparam monochrome true
 skinparam classAttributeIconSize 0
+skinparam shadowing false
 hide circle
 
 class User {
