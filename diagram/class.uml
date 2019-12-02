@@ -10,7 +10,7 @@ class User {
     - firstname : String
     - lastname : String
     - businessNumber : Integer
-    - part : UserRole
+    - part : Set<UserRole>
     - email : String
 }
 
