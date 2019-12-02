@@ -4,46 +4,46 @@ skinparam classAttributeIconSize 0
 hide circle
 
 class User {
-    -username : String
-    -passwort(-hash) : String
-    -vorname : String
-    -nachname : String
-    -dienstnummer : Integer
-    -rolle : Type
-    -email : String
+    - username : String
+    - password : String
+    - firstname : String
+    - lastname : String
+    - businessNumber : Integer
+    - part : UserRole
+    - email : String
 }
 
-class Type <<enumeration>> {
-    Piloten
-    Bodenpersonal
+class UserRole <<enumeration>> {
+    Pilot
+    GroundStaff
     Manager
     Administartor 
 }
 
 
-class Flugzeug {
-    -flugzeugkenung : String
-    -flugzeugTyp : FlugzeugTyp
-    -anzahlDerBenoetigtenPiloten : Integer
-    -anzahlDerBenoetigtenCrewmitglieder : Integer
-    -anzahlDerPassagierPlaetze : Integer
+class Aircraft {
+    - aircraftIdentification : String
+    - aircraftType : AircraftType
+    - requiredPilots : Integer
+    - requiredCrewMemeber : Integer
+    - numberOfPassengerSeats : Integer
 }
 
-class FlugzeugType <<enumeration>> {
+class AircraftType <<enumeration>> {
     Airbus
     Boeing
 }
 
-class Flug {
-    -flugnummer : String
-    -iataCode Abflughafen
-    -utcAbflugzeit : Datetime
-    -utcAnkunftzeit : Datetime
-    -datumDesFluges : Datetime
-    -pilots : List
-    -bodenpersonal : List
-    -anzahlDerPassagiere : Integer
-    -eingesetztesFlugzeug : Flugzeug
+class flight {
+    - flightNumber : String
+    - iataCode Abflughafen
+    - utcDepartureTime : Datetime
+    - utcArrivalTime : Datetime
+    - dateOfFlight : Datetime
+    - pilots : List
+    - groundStaff : List
+    - numberOfPassengerSeats : Integer
+    - usedAircraft : Aircraft
 }
 
 @enduml
