@@ -18,7 +18,7 @@ class UserRole <<enumeration>> {
     Pilot
     GroundStaff
     Manager
-    Administartor 
+    Administartor
 }
 
 
@@ -35,7 +35,7 @@ class AircraftType <<enumeration>> {
     Boeing
 }
 
-class flight {
+class Flight {
     - flightNumber : String
     - iataCode Abflughafen
     - utcDepartureTime : Datetime
@@ -46,5 +46,48 @@ class flight {
     - numberOfPassengerSeats : Integer
     - usedAircraft : Aircraft
 }
+
+interface ManagerService {
+    + void create()
+    + void edit()
+    + void delete()
+    + List<Flight> getFlightOverview()
+}
+
+interface FlightService {
+    + createFlight()
+    + addPilot()
+    + removePilot()
+    + addCrew()
+}
+
+interface AircraftService {
+    + createAircraft()
+    + deleteAircraft()
+    + isAvailable()
+}
+
+interface UserService {
+    + addUser()
+    + deleteUser()
+}
+
+interface RosterService {
+    + getRoster()
+}
+
+interface VacationService {
+    + checkVacation()
+    + addVacation()
+    + removeVacation()
+}
+
+UserService --> User
+UserService <|-- VacationService
+UserService <|-- RosterService
+UserService <|-- FlightService
+AircraftService <|-- FlightService
+FlightService --> Flight
+AircraftService --> Aircraft
 
 @enduml
