@@ -47,47 +47,85 @@ class Flight {
     - usedAircraft : Aircraft
 }
 
-interface ManagerService {
-    + void create()
-    + void edit()
-    + void delete()
-    + List<Flight> getFlightOverview()
-}
-
-interface FlightService {
-    + createFlight()
+interface ManageFlights {
+    + addFlight()
+    + editFlight()
+    + removeFlight()
     + addPilot()
-    + removePilot()
     + addCrew()
 }
 
-interface AircraftService {
-    + createAircraft()
-    + deleteAircraft()
+interface ManageFleet {
+    + addAircraft()
+    + editAircraft()
+    + removeAircraft()
     + isAvailable()
 }
 
-interface UserService {
-    + addUser()
-    + deleteUser()
+interface ManageUser {
+    + addUSer()
+    + editUser()
+    + removeUser()
+    + isAvailable()
+}
+
+interface FlightData {
+    + getAccomplishedFlights()
+    + getCurrentFlights()
+    + getFutureFlights()
+    + getFLightsOfPilot()
+    + getFlightsOfStaff()
+    + getFlightsOfAircraft()
 }
 
 interface RosterService {
     + getRoster()
+    + getFlightDetails()
 }
 
 interface VacationService {
-    + checkVacation()
     + addVacation()
-    + removeVacation()
+    + isValid()
 }
 
-UserService --> User
-UserService <|-- VacationService
-UserService <|-- RosterService
-UserService <|-- FlightService
-AircraftService <|-- FlightService
-FlightService --> Flight
-AircraftService --> Aircraft
+interface MessageService {
+    + sendFlightData()
+}
+
+class AdminTasks {
+    + createUSer()
+    + deleteUser()
+}
+
+
+
+User --> UserRole
+Flight --> User
+Aircraft --> AircraftType
+Flight --> Aircraft
+
+AdminTasks --> Flight
+AdminTasks --> Aircraft
+AdminTasks --> User
+ManagerTasks --> Flight
+ManagerTasks --> Aircraft
+ManagerTasks --> User
+CrewTasks --> Flight
+CrewTasks --> User
+
+ManageFlights <|.. AdminTasks
+ManageFleet <|.. AdminTasks
+ManageUser <|.. AdminTasks
+FlightData <|.. AdminTasks
+RosterService <|.. AdminTasks
+VacationService <|.. AdminTasks
+MessageService <|.. AdminTasks
+ManageFlights <|.. ManagerTasks
+ManageFleet <|.. ManagerTasks
+ManageUser <|.. ManagerTasks
+FlightData <|.. ManagerTasks
+RosterService <|.. CrewTasks
+VacationService <|.. CrewTasks
+MessageService <|.. CrewTasks
 
 @enduml
