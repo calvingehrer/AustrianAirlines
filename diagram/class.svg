@@ -93,11 +93,12 @@ interface MessageService {
     + sendFlightData()
 }
 
-
 class AdminTasks {
     + createUSer()
     + deleteUser()
 }
+
+
 
 User - -> UserRole
 Flight - -> User

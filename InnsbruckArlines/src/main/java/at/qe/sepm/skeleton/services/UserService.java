@@ -10,6 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Service for accessing and manipulating user data.
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("application")
 public class UserService {
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -76,6 +79,7 @@ public class UserService {
     public void deleteUser(User user) {
         userRepository.delete(user);
         // :TODO: write some audit log stating who and when this user was permanently deleted.
+        logger.info(user + " is permanently deleted");
     }
 
     private User getAuthenticatedUser() {
