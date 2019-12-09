@@ -31,7 +31,7 @@ public class Main extends SpringBootServletInitializer {
         SpringApplication.run(Main.class, args);
 
         /**
-         * To give out the coded Password
+         * To print out the coded Password
          *
          * BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
          * System.out.println(bc.encode("passwd"));
