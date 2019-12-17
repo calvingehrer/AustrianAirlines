@@ -13,6 +13,7 @@ public enum UserRole {
     MANAGER,
     EMPLOYEE,
     PILOT,
-    STAFF
+    CABINSTAFF
 
 }
+

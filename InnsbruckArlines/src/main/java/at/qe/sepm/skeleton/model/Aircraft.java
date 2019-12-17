@@ -1,19 +1,34 @@
 package at.qe.sepm.skeleton.model;
 
-public class Aircraft {
+import org.springframework.data.domain.Persistable;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+
+/**
+ * Entity representing Aircraft
+ */
+
+@Entity
+public class Aircraft implements Persistable<String>, Serializable {
+
+    @Id
+    @Column(length = 100)
     private String aircraftIdentification;
+
     private AircraftType aircraftType;
     private int requiredPilots;
     private int requiredCrewMembers;
     private int numberOfPassengerSeats;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
 
-    public Aircraft(String aircraftIdentification, AircraftType aircraftType, int requiredPilots, int requiredCrewMembers, int numberOfPassengerSeats) {
-        this.aircraftIdentification = aircraftIdentification;
-        this.aircraftType = aircraftType;
-        this.requiredPilots = requiredPilots;
-        this.requiredCrewMembers = requiredCrewMembers;
-        this.numberOfPassengerSeats = numberOfPassengerSeats;
-    }
+    @ElementCollection(targetClass = AircraftType.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "Aircraft_AircraftType")
+    @Enumerated(EnumType.STRING)
+    private Set<AircraftType> types;
 
     public String getAircraftIdentification() {
         return aircraftIdentification;
@@ -53,5 +68,28 @@ public class Aircraft {
 
     public void setNumberOfPassengerSeats(int numberOfPassengerSeats) {
         this.numberOfPassengerSeats = numberOfPassengerSeats;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date creationDate) {
+        this.createDate = creationDate;
+    }
+
+    @Override
+    public String toString() {
+        return "at.qe.sepm.skeleton.model.Aircraft[ id=" + aircraftIdentification + " ]";
+    }
+
+    @Override
+    public String getId(){
+        return getAircraftIdentification();
+    }
+
+    @Override
+    public boolean isNew(){
+        return (null == createDate);
     }
 }
