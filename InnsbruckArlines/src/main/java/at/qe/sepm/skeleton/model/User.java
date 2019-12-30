@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import at.qe.sepm.skeleton.model.UserRole;
 import org.springframework.data.domain.Persistable;
 
 /**
@@ -32,7 +34,6 @@ public class User implements Persistable<String>, Serializable {
     @Id
     @Column(length = 100)
     private String username;
-
     @ManyToOne(optional = false)
     private User createUser;
     @Column(nullable = false)

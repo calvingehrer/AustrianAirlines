@@ -18,7 +18,7 @@ class UserRole <<enumeration>> {
     Pilot
     GroundStaff
     Manager
-    Administartor 
+    Administartor
 }
 
 
@@ -35,7 +35,7 @@ class AircraftType <<enumeration>> {
     Boeing
 }
 
-class flight {
+class Flight {
     - flightNumber : String
     - iataCode Abflughafen
     - utcDepartureTime : Datetime
@@ -46,5 +46,86 @@ class flight {
     - numberOfPassengerSeats : Integer
     - usedAircraft : Aircraft
 }
+
+interface ManageFlights {
+    + addFlight()
+    + editFlight()
+    + removeFlight()
+    + addPilot()
+    + addCrew()
+}
+
+interface ManageFleet {
+    + addAircraft()
+    + editAircraft()
+    + removeAircraft()
+    + isAvailable()
+}
+
+interface ManageUser {
+    + addUSer()
+    + editUser()
+    + removeUser()
+    + isAvailable()
+}
+
+interface FlightData {
+    + getAccomplishedFlights()
+    + getCurrentFlights()
+    + getFutureFlights()
+    + getFLightsOfPilot()
+    + getFlightsOfStaff()
+    + getFlightsOfAircraft()
+}
+
+interface RosterService {
+    + getRoster()
+    + getFlightDetails()
+}
+
+interface VacationService {
+    + addVacation()
+    + isValid()
+}
+
+interface MessageService {
+    + sendFlightData()
+}
+
+class AdminTasks {
+    + createUSer()
+    + deleteUser()
+}
+
+
+
+User --> UserRole
+Flight --> User
+Aircraft --> AircraftType
+Flight --> Aircraft
+
+AdminTasks --> Flight
+AdminTasks --> Aircraft
+AdminTasks --> User
+ManagerTasks --> Flight
+ManagerTasks --> Aircraft
+ManagerTasks --> User
+CrewTasks --> Flight
+CrewTasks --> User
+
+ManageFlights <|.. AdminTasks
+ManageFleet <|.. AdminTasks
+ManageUser <|.. AdminTasks
+FlightData <|.. AdminTasks
+RosterService <|.. AdminTasks
+VacationService <|.. AdminTasks
+MessageService <|.. AdminTasks
+ManageFlights <|.. ManagerTasks
+ManageFleet <|.. ManagerTasks
+ManageUser <|.. ManagerTasks
+FlightData <|.. ManagerTasks
+RosterService <|.. CrewTasks
+VacationService <|.. CrewTasks
+MessageService <|.. CrewTasks
 
 @enduml
