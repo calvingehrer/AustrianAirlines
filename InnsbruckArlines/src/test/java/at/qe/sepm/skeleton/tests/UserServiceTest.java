@@ -32,7 +32,7 @@ public class UserServiceTest {
     @Test
     @WithMockUser(username = "admin", authorities = {"ADMIN"})
     public void testDatainitialization() {
-        Assert.assertEquals("Insufficient amount of users initialized for test data source", 3, userService.getAllUsers().size());
+        Assert.assertEquals("Insufficient amount of users initialized for test data source", 4, userService.getAllUsers().size());
         for (User user : userService.getAllUsers()) {
             if ("admin".equals(user.getUsername())) {
                 Assert.assertTrue("User \"admin\" does not have role ADMIN", user.getRoles().contains(UserRole.ADMIN));
@@ -47,11 +47,17 @@ public class UserServiceTest {
                 Assert.assertNull("User \"user1\" has a updateUser defined", user.getUpdateUser());
                 Assert.assertNull("User \"user1\" has a updateDate defined", user.getUpdateDate());
             } else if ("user2".equals(user.getUsername())) {
-                Assert.assertTrue("User \"user2\" does not have role EMPLOYEE", user.getRoles().contains(UserRole.EMPLOYEE));
+                Assert.assertTrue("User \"user2\" does not have role PILOT", user.getRoles().contains(UserRole.PILOT));
                 Assert.assertNotNull("User \"user2\" does not have a createUser defined", user.getCreateUser());
                 Assert.assertNotNull("User \"user2\" does not have a createDate defined", user.getCreateDate());
                 Assert.assertNull("User \"user2\" has a updateUser defined", user.getUpdateUser());
                 Assert.assertNull("User \"user2\" has a updateDate defined", user.getUpdateDate());
+            } else if ("user3".equals(user.getUsername())) {
+                Assert.assertTrue("User \"user3\" does not have role CABINSTAFF", user.getRoles().contains(UserRole.CABINSTAFF));
+                Assert.assertNotNull("User \"user3\" does not have a createUser defined", user.getCreateUser());
+                Assert.assertNotNull("User \"user3\" does not have a createDate defined", user.getCreateDate());
+                Assert.assertNull("User \"user3\" has a updateUser defined", user.getUpdateUser());
+                Assert.assertNull("User \"user3\" has a updateDate defined", user.getUpdateDate());
             } else {
                 Assert.fail("Unknown user \"" + user.getUsername() + "\" loaded from test data source via UserService.getAllUsers");
             }
@@ -69,7 +75,7 @@ public class UserServiceTest {
 
         userService.deleteUser(toBeDeletedUser);
 
-        Assert.assertEquals("No user has been deleted after calling UserService.deleteUser", 2, userService.getAllUsers().size());
+        Assert.assertEquals("No user has been deleted after calling UserService.deleteUser", 3, userService.getAllUsers().size());
         User deletedUser = userService.loadUser("user1");
         Assert.assertNull("Deleted User1 could still be loaded from test data source via UserService.loadUser", deletedUser);
 
@@ -115,7 +121,7 @@ public class UserServiceTest {
         toBeCreatedUser.setFirstName("New");
         toBeCreatedUser.setLastName("User");
         toBeCreatedUser.setEmail("new-email@whatever.wherever");
-        toBeCreatedUser.setPhone("+12 345 67890");
+        toBeCreatedUser.setBusinessNumber(12345);
         toBeCreatedUser.setRoles(Sets.newSet(UserRole.EMPLOYEE, UserRole.MANAGER));
         userService.saveUser(toBeCreatedUser);
 
@@ -126,7 +132,7 @@ public class UserServiceTest {
         Assert.assertEquals("User \"newuser\" does not have a the correct firstName attribute stored being saved", "New", freshlyCreatedUser.getFirstName());
         Assert.assertEquals("User \"newuser\" does not have a the correct lastName attribute stored being saved", "User", freshlyCreatedUser.getLastName());
         Assert.assertEquals("User \"newuser\" does not have a the correct email attribute stored being saved", "new-email@whatever.wherever", freshlyCreatedUser.getEmail());
-        Assert.assertEquals("User \"newuser\" does not have a the correct phone attribute stored being saved", "+12 345 67890", freshlyCreatedUser.getPhone());
+        Assert.assertEquals("User \"newuser\" does not have a the correct businessNumber attribute stored being saved", "+12 345 67890", freshlyCreatedUser.getBusinessNumber());
         Assert.assertTrue("User \"newuser\" does not have role MANAGER", freshlyCreatedUser.getRoles().contains(UserRole.MANAGER));
         Assert.assertTrue("User \"newuser\" does not have role EMPLOYEE", freshlyCreatedUser.getRoles().contains(UserRole.EMPLOYEE));
         Assert.assertNotNull("User \"newuser\" does not have a createUser defined after being saved", freshlyCreatedUser.getCreateUser());

@@ -19,7 +19,10 @@
                     <span class="ui-button-text">Login</span>
                 </button>
 
-                <p:outputLabel value="Invalid Username/Password combination!" style="color: red" rendered="${!empty param['error']}"/>
+                <c:if test="${param.error != null}">
+                    <p style="color: red"> Invalid Username or Password </p>
+                </c:if>
+
 
             </h:panelGrid>
         </form>

@@ -49,7 +49,7 @@ public class User implements Persistable<String>, Serializable {
     private String firstName;
     private String lastName;
     private String email;
-    private String phone;
+    private Integer businessNumber;
 
     boolean enabled;
 
@@ -98,12 +98,12 @@ public class User implements Persistable<String>, Serializable {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    public Integer getBusinessNumber() {
+        return businessNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setBusinessNumber(Integer businessNumber) {
+        this.businessNumber = businessNumber;
     }
 
     public boolean isEnabled() {
