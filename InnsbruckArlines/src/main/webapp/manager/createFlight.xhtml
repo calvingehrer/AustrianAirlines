@@ -54,13 +54,11 @@
                         <h:outputText value="#{aircraft.location}"/>
                     </p:column>
                     <p:column style="width:100px;text-align: center">
-                        <p:commandButton update=":aircraftForm:aircraftEditDialog" icon="ui-icon-check" title="Select">
+                        <p:commandButton update=":aircraftForm:aircraftEditDialog" action="#{addFlightController.addAircraft}" oncomplete="PF('selectAircraftDialog').hide()" icon="ui-icon-check" title="Select">
                             <f:setPropertyActionListener value="#{aircraft}" target="#{addFlightController.aircraft}" />
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
-
-                <p:commandButton value="Select" action="#{addFlightController.addAircraft}" oncomplete="PF('selectAircraftDialog').hide()"/>
 
                 <p:dialog header="Edit Aircraft" id="aircraftEditDialog" widgetVar="aircraftEditDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <p:outputPanel id="aircraftData" rendered="#{not empty addFlightController.aircraft}">
