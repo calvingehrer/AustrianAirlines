@@ -3,8 +3,8 @@ package at.qe.sepm.skeleton.model;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +18,8 @@ public class Flight implements Persistable<String>, Serializable {
     @Id
     @Column(length = 100)
     private String flightNumber;
-    private String iataCode;
+    private String iataCodeDeparture;
+    private String iataCodeArrival;
     @Temporal(TemporalType.TIMESTAMP)
     private Date utcDepartureTime;
     @Temporal(TemporalType.TIMESTAMP)
@@ -27,6 +28,8 @@ public class Flight implements Persistable<String>, Serializable {
     private Date dateOfFlight;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    @Temporal(TemporalType.DATE)
+    private Date updateDate;
     @ManyToMany
     private List<User> pilots;
     @ManyToMany
@@ -34,7 +37,6 @@ public class Flight implements Persistable<String>, Serializable {
     private int numberOfPassengerSeats;
     @ManyToOne
     private Aircraft usedAircraft;
-
 
     public String getFlightNumber() {
         return flightNumber;
@@ -44,12 +46,20 @@ public class Flight implements Persistable<String>, Serializable {
         this.flightNumber = flightNumber;
     }
 
-    public String getIataCode() {
-        return iataCode;
+    public String getIataCodeDeparture() {
+        return iataCodeDeparture;
     }
 
-    public void setIataCode(String iataCode) {
-        this.iataCode = iataCode;
+    public void setIataCodeDeparture(String iataCode) {
+        this.iataCodeDeparture = iataCode;
+    }
+
+    public String getIataCodeArrival() {
+        return iataCodeArrival;
+    }
+
+    public void setIataCodeArrival(String iataCodeArrival) {
+        this.iataCodeArrival = iataCodeArrival;
     }
 
     public Date getUtcDepartureTime() {
@@ -84,6 +94,14 @@ public class Flight implements Persistable<String>, Serializable {
         this.createDate = createDate;
     }
 
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
     public List<User> getPilots() {
         return pilots;
     }
@@ -109,7 +127,6 @@ public class Flight implements Persistable<String>, Serializable {
         this.numberOfPassengerSeats = numberOfPassengerSeats;
     }
 
-
     public Aircraft getUsedAircraft() {
         return usedAircraft;
     }
@@ -117,7 +134,6 @@ public class Flight implements Persistable<String>, Serializable {
     public void setUsedAircraft(Aircraft usedAircraft) {
         this.usedAircraft = usedAircraft;
     }
-
 
     @Override
     public String toString() {

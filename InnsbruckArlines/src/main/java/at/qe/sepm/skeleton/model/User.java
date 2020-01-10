@@ -15,8 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
 
-import at.qe.sepm.skeleton.model.UserRole;
 import org.springframework.data.domain.Persistable;
 
 /**
@@ -43,13 +43,12 @@ public class User implements Persistable<String>, Serializable {
     private User updateUser;
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-
     private String password;
-
     private String firstName;
     private String lastName;
+    @Email
     private String email;
-    private String phone;
+    private String businessNumber;
 
     boolean enabled;
 
@@ -98,12 +97,12 @@ public class User implements Persistable<String>, Serializable {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getBusinessNumber() {
+        return businessNumber;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setBusinessNumber(String businessNumber) {
+        this.businessNumber = businessNumber;
     }
 
     public boolean isEnabled() {

@@ -14,6 +14,8 @@ public interface FlightRepository extends AbstractRepository<Flight, String> {
 
     Flight findFirstByFlightNumber(String flightNumber);
 
+    List<Flight> findByFlightNumberContaining(String flightNumber);
+
     @Query("SELECT f FROM Flight f WHERE f.usedAircraft.aircraftIdentification = :aircraftId")
     List<Flight> findByUsedAircraft(@Param("aircraftId") String aircraftId);
 }

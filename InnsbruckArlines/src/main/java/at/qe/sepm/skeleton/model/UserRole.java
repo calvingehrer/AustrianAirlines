@@ -7,6 +7,7 @@ package at.qe.sepm.skeleton.model;
  * courses "Software Architecture" and "Software Engineering" offered by the
  * University of Innsbruck.
  */
+
 public enum UserRole {
 
     ADMIN,

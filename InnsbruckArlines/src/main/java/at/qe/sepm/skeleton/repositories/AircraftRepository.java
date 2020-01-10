@@ -19,4 +19,7 @@ public interface AircraftRepository extends AbstractRepository<Aircraft, String>
 
     @Query("SELECT a FROM Aircraft a WHERE :type MEMBER OF a.types")
     List<Aircraft> findByType(@Param("type") AircraftType type);
+
+    @Query("SELECT a FROM Aircraft a WHERE a.location = :location")
+    List<Aircraft> findByLocation(@Param("location") String location);
 }

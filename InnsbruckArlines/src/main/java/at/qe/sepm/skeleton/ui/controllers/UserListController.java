@@ -30,4 +30,13 @@ public class UserListController {
         return userService.getAllUsers();
     }
 
+    /**
+     * Resturns a list of the entire staff
+     *
+     * @return
+     */
+    public Collection<User> getStaff(){
+        return userService.getAllStaff();
+    }
+
 }

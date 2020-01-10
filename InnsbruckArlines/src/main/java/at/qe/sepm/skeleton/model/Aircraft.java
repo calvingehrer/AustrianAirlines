@@ -3,6 +3,7 @@ package at.qe.sepm.skeleton.model;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -18,12 +19,18 @@ public class Aircraft implements Persistable<String>, Serializable {
     @Column(length = 100)
     private String aircraftIdentification;
 
+    @NotNull
     private AircraftType aircraftType;
     private int requiredPilots;
     private int requiredCrewMembers;
     private int numberOfPassengerSeats;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+
+    @Temporal(TemporalType.DATE)
+    private  Date updateDate;
+    private String location;
+
 
     @ElementCollection(targetClass = AircraftType.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "Aircraft_AircraftType")
@@ -70,12 +77,37 @@ public class Aircraft implements Persistable<String>, Serializable {
         this.numberOfPassengerSeats = numberOfPassengerSeats;
     }
 
+
+    public Set<AircraftType> getTypes() {
+        return types;
+    }
+
+    public void setTypes(Set<AircraftType> types) {
+        this.types = types;
+    }
+
     public Date getCreateDate() {
         return createDate;
     }
 
     public void setCreateDate(Date creationDate) {
         this.createDate = creationDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override
