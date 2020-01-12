@@ -49,27 +49,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-
-    /**
-     * Returns a collection of all users with role Pilot
-     *
-     * @return
-     */
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
-    public Collection<User> getAllPilots(){
-        return userRepository.findByRole(UserRole.PILOT);
-    }
-
-    /**
-     * Returns a collection of all users with role cabinstaff
-     *
-     * @return
-     */
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
-    public Collection<User> getAllCabinstaff(){
-        return userRepository.findByRole(UserRole.CABINSTAFF);
-    }
-
     /**
      * Returns all the cabin staff
      *
@@ -77,9 +56,56 @@ public class UserService {
      */
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
     public Collection<User> getAllStaff(){
-        Collection<User> staff = userRepository.findByRole(UserRole.PILOT);
-        staff.addAll(userRepository.findByRole(UserRole.CABINSTAFF));
-        return staff;
+        return userRepository.findByTwoRoles(UserRole.PILOT, UserRole.CABINSTAFF);
+    }
+
+    /**
+     * Returns a list of all staff members with the given role
+     *
+     * @param role
+     * @return
+     */
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
+    public Collection<User> getAllStaffByRole(String role){
+        if(role.equals("Pilot")){
+            return userRepository.findByRole(UserRole.PILOT);
+        } else if (role.equals("Cabinstaff")){
+            return userRepository.findByRole(UserRole.CABINSTAFF);
+        }else {
+            return getAllStaff();
+        }
+    }
+
+    /**
+     * Returns a list of all users with the given role
+     *
+     * @param role
+     * @return
+     */
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Collection<User> getAllUsersByRole(String role){
+        if (role.equals("Admin")){
+            return userRepository.findByRole(UserRole.ADMIN);
+        } else if (role.equals("Manager")){
+            return userRepository.findByRole(UserRole.MANAGER);
+        }
+        else if(role.equals("Pilot")){
+            return userRepository.findByRole(UserRole.PILOT);
+        } else if (role.equals("Cabinstaff")){
+            return userRepository.findByRole(UserRole.CABINSTAFF);
+        }else {
+            return userRepository.findAll();
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Collection<User> getAllUsersByUsername(String username){
+        return userRepository.findByUsernamePrefix(username);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
+    public Collection<User> getAllStaffByUsername(String username){
+        return userRepository.findStaffByUsernamePrefix(username, UserRole.PILOT, UserRole.CABINSTAFF);
     }
 
     /**

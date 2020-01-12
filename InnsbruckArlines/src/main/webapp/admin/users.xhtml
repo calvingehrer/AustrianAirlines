@@ -7,8 +7,30 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/main.xhtml">
     <ui:define name ="content">
+
+        <h:form id="selection">
+            <h:panelGrid columns="4">
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Username: "/>
+                    <p:inputText value="#{userListController.username}"/>
+                </h:panelGrid>
+                <p:commandButton value="Find" update=":userForm"/>
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="User Role: " />
+                    <p:selectOneMenu value="#{userListController.roleFilter}">
+                        <f:selectItem itemLabel="All" itemValue=""/>
+                        <f:selectItem itemLabel="Admin" itemValue="Admin"/>
+                        <f:selectItem itemLabel="Manager" itemValue="Manager"/>
+                        <f:selectItem itemLabel="Pilot" itemValue="Pilot"/>
+                        <f:selectItem itemLabel="Cabin Staff" itemValue="Cabinstaff"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <p:commandButton value="Filter" update=":userForm"/>
+            </h:panelGrid>
+        </h:form>
+
         <h:form id="userForm">
-            <p:dataTable id="usersTable" var="user" value="#{userListController.users}">
+            <p:dataTable id="usersTable" var="user" value="#{userListController.filteredUsers}">
                 <p:column headerText="Username">
                     <h:outputText value="#{user.username}"/>
                 </p:column>

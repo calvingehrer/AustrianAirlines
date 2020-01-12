@@ -37,6 +37,7 @@ public class Flight implements Persistable<String>, Serializable {
     private int numberOfPassengerSeats;
     @ManyToOne
     private Aircraft usedAircraft;
+    private boolean available;
 
     public String getFlightNumber() {
         return flightNumber;
