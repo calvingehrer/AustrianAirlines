@@ -2,6 +2,7 @@ package at.qe.sepm.skeleton.ui.controllers;
 
 import at.qe.sepm.skeleton.model.Aircraft;
 import at.qe.sepm.skeleton.model.Flight;
+import at.qe.sepm.skeleton.services.AircraftService;
 import at.qe.sepm.skeleton.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -13,6 +14,8 @@ public class AddFlightController {
 
     @Autowired
     private FlightService flightService;
+    @Autowired
+    private AircraftService aircraftService;
 
     /**
      * The new flight to be added to the system
@@ -28,6 +31,8 @@ public class AddFlightController {
      * Action to add the flight to the system
      */
     public void add(){
+        aircraft.setAvailable(false);
+        aircraftService.saveAircraft(aircraft);
         flightService.addNewFlight(flight);
     }
 

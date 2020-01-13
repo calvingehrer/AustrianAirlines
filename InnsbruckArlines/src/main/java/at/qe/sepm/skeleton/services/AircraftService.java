@@ -1,7 +1,7 @@
 package at.qe.sepm.skeleton.services;
 
 import at.qe.sepm.skeleton.model.Aircraft;
-import at.qe.sepm.skeleton.model.Flight;
+import at.qe.sepm.skeleton.model.AircraftType;
 import at.qe.sepm.skeleton.model.User;
 import at.qe.sepm.skeleton.model.UserRole;
 import at.qe.sepm.skeleton.repositories.AircraftRepository;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * Service for accessing and manipulating the available fleet.
@@ -30,9 +29,32 @@ public class AircraftService {
      *
      * @return
      */
-    @PreAuthorize("hasAuthority('MANAGER')")
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('ADMIN')")
     public Collection<Aircraft> getAllAircrafts() {
         return aircraftRepository.findAll();
+    }
+
+
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
+    public Collection<Aircraft> getAllAircraftsByAircraftId(String aircraftId){
+        return aircraftRepository.findAircraftByIdPrefix(aircraftId);
+    }
+
+    /**
+     * Returns a list of all aircrafts of a given type
+     *
+     * @param type
+     * @return
+     */
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
+    public Collection<Aircraft> getAllAircraftsByType(String aircraftType){
+        if(aircraftType.equals("Airbus")){
+            return aircraftRepository.findAircraftByType(AircraftType.AIRBUS);
+        } else if (aircraftType.equals("Boeing")){
+            return aircraftRepository.findAircraftByType(AircraftType.BOEING);
+        }else {
+            return getAllAircrafts();
+        }
     }
 
     /**
@@ -40,7 +62,7 @@ public class AircraftService {
      *
      * @return
      */
-    @PreAuthorize("hasAuthority('MANAGER')")
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('ADMIN')")
     public Collection<Aircraft> getAllAvailableAircrafts(String location){
         return aircraftRepository.findByLocation(location);
     }
@@ -52,7 +74,7 @@ public class AircraftService {
      * @param aircraftIdentification the aircraftIdentification to search for
      * @return the aircraft with the given aircraftIdentification
      */
-    @PreAuthorize("hasAuthority('MANAGER')")
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('ADMIN')")
     public Aircraft loadAircraft(String aircraftIdentification) {
         return aircraftRepository.findFirstByAircraftIdentification(aircraftIdentification);
     }
@@ -75,7 +97,7 @@ public class AircraftService {
      * @param aircraft the aircraft to save
      * @return the updated aircraft
      */
-    @PreAuthorize("hasAuthority('MANAGER')")
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('ADMIN')")
     public Aircraft saveAircraft(Aircraft aircraft){
         if(aircraft.isNew()){
             aircraft.setCreateDate(new Date());
@@ -88,12 +110,10 @@ public class AircraftService {
     /**
      * Deletes the aircraft.
      *
-     * @param aircraft the flight to delete
+     * @param aircraft the aircraft to delete
      */
-    @PreAuthorize("hasAuthority('MANAGER')")
+    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('ADMIN')")
     public void deleteAircraft(Aircraft aircraft) {
         aircraftRepository.delete(aircraft);
     }
-
-
 }

@@ -27,15 +27,6 @@ public class UserListController {
     private String username = "";
 
     /**
-     * Returns a list of all users.
-     *
-     * @return
-     */
-    public Collection<User> getUsers() {
-        return userService.getAllUsers();
-    }
-
-    /**
      * Returns a list of users filtered by user role/username or
      * all users if no filter is given
      *

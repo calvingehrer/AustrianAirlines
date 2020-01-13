@@ -4,6 +4,7 @@ import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -30,7 +31,7 @@ public class Aircraft implements Persistable<String>, Serializable {
     @Temporal(TemporalType.DATE)
     private  Date updateDate;
     private String location;
-
+    private boolean available;
 
     @ElementCollection(targetClass = AircraftType.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "Aircraft_AircraftType")
@@ -77,7 +78,6 @@ public class Aircraft implements Persistable<String>, Serializable {
         this.numberOfPassengerSeats = numberOfPassengerSeats;
     }
 
-
     public Set<AircraftType> getTypes() {
         return types;
     }
@@ -108,6 +108,14 @@ public class Aircraft implements Persistable<String>, Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     @Override
