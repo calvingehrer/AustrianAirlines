@@ -54,41 +54,12 @@
                         <h:outputText value="#{aircraft.location}"/>
                     </p:column>
                     <p:column style="width:100px;text-align: center">
-                        <p:commandButton update=":aircraftForm:aircraftEditDialog" action="#{addFlightController.addAircraft}" oncomplete="PF('selectAircraftDialog').hide()" icon="ui-icon-check" title="Select">
+                        <p:commandButton action="#{addFlightController.addAircraft}" oncomplete="PF('selectAircraftDialog').hide()" icon="ui-icon-check" title="Select">
                             <f:setPropertyActionListener value="#{aircraft}" target="#{addFlightController.aircraft}" />
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
 
-                <p:dialog header="Edit Aircraft" id="aircraftEditDialog" widgetVar="aircraftEditDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                    <p:outputPanel id="aircraftData" rendered="#{not empty addFlightController.aircraft}">
-                        <h:panelGrid columns="2">
-                            <p:outputLabel for="aircraftID" value="Aircraft ID: " />
-                            <p:inputText id="aircraftID" value="#{addFlightController.aircraft.aircraftIdentification}" disabled="true"/>
-                            <p:outputLabel for="type" value="Type: " />
-                            <p:inputText id="type" value="#{addFlightController.aircraft.aircraftType}" disabled="true"/>
-                            <p:outputLabel for="createDate" value="Creation Date: " />
-                            <p:calendar id="createDate" value="#{addFlightController.aircraft.createDate}" pattern="dd/MM/yyyy" disabled="true"/>
-                        </h:panelGrid>
-                        <h:panelGrid columns="2">
-                            <p:outputLabel for="pilots" value="Required Pilots: " />
-                            <p:inputText id="pilots" value="#{addFlightController.aircraft.requiredPilots}"/>
-                            <p:outputLabel for="crew" value="Required Crewmembers: " />
-                            <p:inputText id="crew" value="#{addFlightController.aircraft.requiredCrewMembers}"/>
-                            <p:outputLabel for="seats" value="Total Seats: " />
-                            <p:inputText id="seats" value="#{addFlightController.aircraft.numberOfPassengerSeats}"/>
-                        </h:panelGrid>
-                        <p:separator/>
-                        <h:panelGrid columns="2">
-                            <p:outputLabel for="location" value="Location: "/>
-                            <p:inputText id="location" value="#{addFlightController.aircraft.location}"/>
-                        </h:panelGrid>
-                        <p:separator />
-                        <h:panelGrid columns="3">
-                            <p:commandButton value="Abort" onclick="PF('aircraftEditDialog').hide()"/>
-                        </h:panelGrid>
-                    </p:outputPanel>
-                </p:dialog>
             </h:form>
         </p:dialog>
 
