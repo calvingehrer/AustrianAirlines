@@ -1,175 +1,193 @@
 package at.qe.sepm.skeleton.ui.controllers;
 
-import at.qe.sepm.skeleton.model.Flight;
-import at.qe.sepm.skeleton.services.FlightService;
-import org.primefaces.model.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
+import javax.faces.event.ActionEvent;
 
-@Component
-@Scope("view")
+import org.primefaces.event.ScheduleEntryMoveEvent;
+import org.primefaces.event.ScheduleEntryResizeEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.DefaultScheduleEvent;
+import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.LazyScheduleModel;
+import org.primefaces.model.ScheduleEvent;
+import org.primefaces.model.ScheduleModel;
+
+@ManagedBean
+@ViewScoped
 public class Scheduler implements Serializable {
-
-    @Autowired
-    FlightService flightService = new FlightService();
 
     private ScheduleModel eventModel;
 
-    private boolean showWeekends = true;
-    private boolean tooltip = true;
-    private boolean allDaySlot = true;
+    private ScheduleModel lazyEventModel;
 
-    private String timeFormat;
-    private String slotDuration="00:30:00";
-    private String slotLabelInterval;
-    private String scrollTime="06:00:00";
-    private String minTime="04:00:00";
-    private String maxTime="20:00:00";
-    private String locale="en";
-    private String timeZone="";
-    private String clientTimeZone="local";
-    private String columnHeaderFormat="";
-
-    Collection<Flight> allFlightsPerStaff = new ArrayList<>();
+    private ScheduleEvent event = new DefaultScheduleEvent();
 
     @PostConstruct
     public void init() {
         eventModel = new DefaultScheduleModel();
-        allFlightsPerStaff = flightService.getAllFlights();
+        eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
+        eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
+        eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
+        eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
 
-        for(Flight flight : allFlightsPerStaff){
-            DefaultScheduleEvent event = new DefaultScheduleEvent();
-            event.setTitle("Flight: " + flight.getFlightNumber());
-            event.setStartDate(flight.getUtcDepartureTime());
-            event.setEndDate(flight.getUtcArrivalTime());
-            eventModel.addEvent(event);
-        }
+        lazyEventModel = new LazyScheduleModel() {
+
+            @Override
+            public void loadEvents(Date start, Date end) {
+                Date random = getRandomDate(start);
+                addEvent(new DefaultScheduleEvent("Lazy Event 1", random, random));
+
+                random = getRandomDate(start);
+                addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random));
+            }
+        };
     }
 
-    public LocalDateTime getRandomDateTime(LocalDateTime base) {
-        LocalDateTime dateTime = base.withMinute(0).withSecond(0).withNano(0);
-        return dateTime.plusDays(((int) (Math.random()*30)));
+    public Date getRandomDate(Date base) {
+        Calendar date = Calendar.getInstance();
+        date.setTime(base);
+        date.add(Calendar.DATE, ((int) (Math.random()*30)) + 1);	//set random day of month
+
+        return date.getTime();
     }
 
+    public Date getInitialDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), Calendar.FEBRUARY, calendar.get(Calendar.DATE), 0, 0, 0);
+
+        return calendar.getTime();
+    }
 
     public ScheduleModel getEventModel() {
         return eventModel;
     }
 
+    public ScheduleModel getLazyEventModel() {
+        return lazyEventModel;
+    }
+
+    private Calendar today() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
+
+        return calendar;
+    }
+
+    private Date previousDay8Pm() {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
+        t.set(Calendar.HOUR, 8);
+
+        return t.getTime();
+    }
+
+    private Date previousDay11Pm() {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
+        t.set(Calendar.HOUR, 11);
+
+        return t.getTime();
+    }
+
+    private Date today1Pm() {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.HOUR, 1);
+
+        return t.getTime();
+    }
+
+    private Date theDayAfter3Pm() {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.DATE, t.get(Calendar.DATE) + 2);
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.HOUR, 3);
+
+        return t.getTime();
+    }
+
+    private Date today6Pm() {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.HOUR, 6);
+
+        return t.getTime();
+    }
+
+    private Date nextDay9Am() {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.AM_PM, Calendar.AM);
+        t.set(Calendar.DATE, t.get(Calendar.DATE) + 1);
+        t.set(Calendar.HOUR, 9);
+
+        return t.getTime();
+    }
+
+    private Date nextDay11Am() {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.AM_PM, Calendar.AM);
+        t.set(Calendar.DATE, t.get(Calendar.DATE) + 1);
+        t.set(Calendar.HOUR, 11);
+
+        return t.getTime();
+    }
+
+    private Date fourDaysLater3pm() {
+        Calendar t = (Calendar) today().clone();
+        t.set(Calendar.AM_PM, Calendar.PM);
+        t.set(Calendar.DATE, t.get(Calendar.DATE) + 4);
+        t.set(Calendar.HOUR, 3);
+
+        return t.getTime();
+    }
+
+    public ScheduleEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(ScheduleEvent event) {
+        this.event = event;
+    }
+
+    public void addEvent(ActionEvent actionEvent) {
+        if(event.getId() == null)
+            eventModel.addEvent(event);
+        else
+            eventModel.updateEvent(event);
+
+        event = new DefaultScheduleEvent();
+    }
+
+    public void onEventSelect(SelectEvent selectEvent) {
+        event = (ScheduleEvent) selectEvent.getObject();
+    }
+
+    public void onDateSelect(SelectEvent selectEvent) {
+        event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+    }
+
+    public void onEventMove(ScheduleEntryMoveEvent event) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event moved", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
+
+        addMessage(message);
+    }
+
+    public void onEventResize(ScheduleEntryResizeEvent event) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Event resized", "Day delta:" + event.getDayDelta() + ", Minute delta:" + event.getMinuteDelta());
+
+        addMessage(message);
+    }
+
     private void addMessage(FacesMessage message) {
         FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-    public boolean isShowWeekends() {
-        return showWeekends;
-    }
-
-    public void setShowWeekends(boolean showWeekends) {
-        this.showWeekends = showWeekends;
-    }
-
-    public boolean isTooltip() {
-        return tooltip;
-    }
-
-    public void setTooltip(boolean tooltip) {
-        this.tooltip = tooltip;
-    }
-
-    public boolean isAllDaySlot() {
-        return allDaySlot;
-    }
-
-    public void setAllDaySlot(boolean allDaySlot) {
-        this.allDaySlot = allDaySlot;
-    }
-
-    public String getTimeFormat() {
-        return timeFormat;
-    }
-
-    public void setTimeFormat(String timeFormat) {
-        this.timeFormat = timeFormat;
-    }
-
-    public String getSlotDuration() {
-        return slotDuration;
-    }
-
-    public void setSlotDuration(String slotDuration) {
-        this.slotDuration = slotDuration;
-    }
-
-    public String getSlotLabelInterval() {
-        return slotLabelInterval;
-    }
-
-    public void setSlotLabelInterval(String slotLabelInterval) {
-        this.slotLabelInterval = slotLabelInterval;
-    }
-
-    public String getScrollTime() {
-        return scrollTime;
-    }
-
-    public void setScrollTime(String scrollTime) {
-        this.scrollTime = scrollTime;
-    }
-
-    public String getMinTime() {
-        return minTime;
-    }
-
-    public void setMinTime(String minTime) {
-        this.minTime = minTime;
-    }
-
-    public String getMaxTime() {
-        return maxTime;
-    }
-
-    public void setMaxTime(String maxTime) {
-        this.maxTime = maxTime;
-    }
-
-    public String getLocale() {
-        return locale;
-    }
-
-    public void setLocale(String locale) {
-        this.locale = locale;
-    }
-
-    public String getTimeZone() {
-        return timeZone;
-    }
-
-    public void setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
-    }
-
-    public String getClientTimeZone() {
-        return clientTimeZone;
-    }
-
-    public void setClientTimeZone(String clientTimeZone) {
-        this.clientTimeZone = clientTimeZone;
-    }
-
-    public String getColumnHeaderFormat() {
-        return columnHeaderFormat;
-    }
-
-    public void setColumnHeaderFormat(String columnHeaderFormat) {
-        this.columnHeaderFormat = columnHeaderFormat;
     }
 }
