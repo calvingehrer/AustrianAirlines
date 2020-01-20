@@ -10,27 +10,25 @@
             <h:form>
                 <div class="image"></div>
                 <p:tieredMenu style="width:250px">
-                    <p:submenu label="Profile" rendered="#{sessionInfoBean.hasRole('EMPLOYEE')}">
-                        <p:menuitem value="Show Profile" url="/employee/userProfile.xhtml"/>
-                        <p:menuitem value="Logout" url="/logout" rendered="#{sessionInfoBean.loggedIn}"/>
+                    <p:submenu label="Profile" rendered="#{sessionInfoBean.hasRole('PILOT') or sessionInfoBean.hasRole('CABINSTAFF')}">
+                        <p:menuitem value="Show Profile" url="/employee/profile.xhtml"/>
+                        <p:menuitem value="Schedule" url="/employee/schedule.xhtml"/>
                     </p:submenu>
-                    <p:submenu label="Employee Menu" rendered="#{sessionInfoBean.hasRole('EMPLOYEE')}">
-                        <p:menuitem value="Roster" url="/employee/roster.xhtml"/>
-                        <p:menuitem value="Holidays" url="/employee/holiday.xhtml"/>
+                    <p:submenu label="Flights" rendered="#{sessionInfoBean.hasRole('MANAGER') or sessionInfoBean.hasRole('ADMIN')}">
+                        <p:menuitem value="Show Flights" url="/manager/flights.xhtml"/>
+                        <p:menuitem value="Create Flight" url="/manager/create-flight.xhtml"/>
                     </p:submenu>
-                    <p:submenu label="Manage Airline" rendered="#{sessionInfoBean.hasRole('MANAGER') or sessionInfoBean.hasRole('ADMIN')}">
-                        <p:menuitem value="Show all Flights" url="/manager/flights.xhtml"/>
-                        <p:menuitem value="Create Flight" url="/manager/createFlight.xhtml"/>
-                        <p:menuitem value="Manage Staff" url="/manager/manageStaff.xhtml"/>
-                        <p:menuitem value="Manage Aircrafts" url="/manager/manageAircrafts.xhtml"/>
-
+                    <p:submenu label="Aircrafts" rendered="#{sessionInfoBean.hasRole('MANAGER') or sessionInfoBean.hasRole('ADMIN')}">
+                        <p:menuitem value="All" url="/manager/all-aircrafts.xhtml"/>
+                        <p:menuitem value="Airbus" url="/manager/airbus.xhtml"/>
+                        <p:menuitem value="Boeing" url="/manager/boeing.xhtml"/>
                     </p:submenu>
-                    <p:submenu label="Admin" rendered="#{sessionInfoBean.hasRole('ADMIN')}">
-                        <p:menuitem value="Manage Users" url="/admin/users.xhtml"/>
+                    <p:submenu label="Staff" rendered="#{sessionInfoBean.hasRole('MANAGER') or sessionInfoBean.hasRole('ADMIN')}">
+                        <p:menuitem value="All" url="/manager/staff.xhtml"/>
+                        <p:menuitem value="Pilots" url="/manager/pilots.xhtml"/>
+                        <p:menuitem value="Crew" url="/manager/crew.xhtml"/>
                     </p:submenu>
-                    <p:submenu label="Test Submenu" rendered="#{sessionInfoBean.loggedIn}">
-                        <p:menuitem value="Security Test" url="/secured/test.xhtml"/>
-                    </p:submenu>
+                    <p:menuitem value="System Users" url="/admin/users.xhtml" rendered="#{sessionInfoBean.hasRole('ADMIN')}"/>
                     <p:menuitem value="Login" url="/login.xhtml" rendered="#{!sessionInfoBean.loggedIn}"/>
                 </p:tieredMenu>
             </h:form>

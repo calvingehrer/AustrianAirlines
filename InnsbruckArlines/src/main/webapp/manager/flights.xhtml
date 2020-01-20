@@ -7,6 +7,8 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/main.xhtml">
     <ui:define name ="content">
+        <h1>Flights</h1>
+
         <h:form id="flightForm">
             <p:dataTable id="flightTable" var="flight" value="#{flightListController.flights}">
                 <p:column headerText="Flightnumber">
