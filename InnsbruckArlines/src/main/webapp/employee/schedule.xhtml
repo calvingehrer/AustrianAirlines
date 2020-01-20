@@ -7,6 +7,16 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/main.xhtml">
     <ui:define name ="content">
+        <h1>Schedule</h1>
+
+        <h:form>
+            <p:growl id="messages" showDetail="true" />
+
+            <h:panelGrid columnClasses="value">
+                <p:schedule id="schedule" value="#{scheduler.eventModel}" widgetVar="myschedule" />
+            </h:panelGrid>
+
+        </h:form>
 
     </ui:define>
 </ui:composition>

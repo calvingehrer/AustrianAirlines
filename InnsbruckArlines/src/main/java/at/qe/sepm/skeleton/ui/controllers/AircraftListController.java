@@ -1,7 +1,7 @@
 package at.qe.sepm.skeleton.ui.controllers;
 
 import at.qe.sepm.skeleton.model.Aircraft;
-import at.qe.sepm.skeleton.model.User;
+import at.qe.sepm.skeleton.model.AircraftType;
 import at.qe.sepm.skeleton.services.AircraftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -18,31 +18,46 @@ public class AircraftListController {
 
     @Autowired
     private AircraftService aircraftService;
-    private String aircrafttype = "";
     private String aircraftId = "";
 
     /**
-     * Returns a list of all aircrafts.
+     * Returns a list of all aircrafts
+     * that can be filtered by the aircraftID
      *
      * @return
      */
     public Collection<Aircraft> getAircrafts() {
+        if (!aircraftId.equals("")) {
+            return aircraftService.getAllAircraftsByAircraftId(aircraftId);
+        }
         return aircraftService.getAllAircrafts();
     }
 
     /**
-     * Returns a list of aircrafts filtered by  aircraft type/id or
-     * all aircraft if no filter is given
+     * Returns a list of all airbus aircrafts
+     * that can be filtered by the aircraftID
      *
      * @return
      */
-    public Collection<Aircraft> getFilteredAircrafts(){
-        if(!aircraftId.equals("")){
+    public Collection<Aircraft> getAirbus() {
+        if (!aircraftId.equals("")) {
             return aircraftService.getAllAircraftsByAircraftId(aircraftId);
         }
-        return aircraftService.getAllAircraftsByType(aircrafttype);
+        return aircraftService.getAllAirbusAircrafts();
     }
 
+    /**
+     * Returns a list of all boeing aircrafts
+     * that can be filtered by the aircraftID
+     *
+     * @return
+     */
+    public Collection<Aircraft> getBoeing() {
+        if (!aircraftId.equals("")) {
+            return aircraftService.getAllAircraftsByAircraftId(aircraftId);
+        }
+        return aircraftService.getAllBoeingAircrafts();
+    }
 
     /**
      * Returns a list of all aircrafts at a given location
@@ -53,12 +68,8 @@ public class AircraftListController {
         return aircraftService.getAllAvailableAircrafts(location);
     }
 
-    public String getAircrafttype() {
-        return aircrafttype;
-    }
-
-    public void setAircrafttype(String aircrafttype) {
-        this.aircrafttype = aircrafttype;
+    public void resetFilter(){
+        this.aircraftId = "";
     }
 
     public String getAircraftId() {

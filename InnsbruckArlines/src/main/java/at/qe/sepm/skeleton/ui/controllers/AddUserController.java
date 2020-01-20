@@ -54,6 +54,30 @@ public class AddUserController {
         resetUser();
     }
 
+    /**
+     * Add explicit a pilot to the system
+     */
+    public void addPilot(){
+        this.roles = new HashSet<>();
+        roles.add(UserRole.PILOT);
+        roles.add(UserRole.EMPLOYEE);
+        user.setRoles(roles);
+        userService.addNewUser(user);
+        resetUser();
+    }
+
+    /**
+     * Add explicit a crew member to the system
+     */
+    public void addCrew(){
+        this.roles = new HashSet<>();
+        roles.add(UserRole.CABINSTAFF);
+        roles.add(UserRole.EMPLOYEE);
+        user.setRoles(roles);
+        userService.addNewUser(user);
+        resetUser();
+    }
+
     public void resetUser(){
         this.user = new User();
         roles.clear();

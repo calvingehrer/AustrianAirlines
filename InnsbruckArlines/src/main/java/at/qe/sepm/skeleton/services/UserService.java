@@ -60,20 +60,23 @@ public class UserService {
     }
 
     /**
-     * Returns a list of all staff members with the given role
+     * Returns all pilots
      *
-     * @param role
      * @return
      */
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
-    public Collection<User> getAllStaffByRole(String role){
-        if(role.equals("Pilot")){
-            return userRepository.findByRole(UserRole.PILOT);
-        } else if (role.equals("Cabinstaff")){
-            return userRepository.findByRole(UserRole.CABINSTAFF);
-        }else {
-            return getAllStaff();
-        }
+    public Collection<User> getAllPilots(){
+        return userRepository.findByRole(UserRole.PILOT);
+    }
+
+    /**
+     * Returns all pilots
+     *
+     * @return
+     */
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
+    public Collection<User> getAllCrewMembers(){
+        return userRepository.findByRole(UserRole.CABINSTAFF);
     }
 
     /**

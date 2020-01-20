@@ -41,21 +41,26 @@ public class AircraftService {
     }
 
     /**
-     * Returns a list of all aircrafts of a given type
+     * Returns a list of all airbus aircrafts
      *
-     * @param type
      * @return
      */
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
-    public Collection<Aircraft> getAllAircraftsByType(String aircraftType){
-        if(aircraftType.equals("Airbus")){
+    public Collection<Aircraft> getAllAirbusAircrafts(){
             return aircraftRepository.findAircraftByType(AircraftType.AIRBUS);
-        } else if (aircraftType.equals("Boeing")){
-            return aircraftRepository.findAircraftByType(AircraftType.BOEING);
-        }else {
-            return getAllAircrafts();
-        }
     }
+
+    /**
+     * Returns a list of all airbus aircrafts
+     *
+     * @return
+     */
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
+    public Collection<Aircraft> getAllBoeingAircrafts(){
+        return aircraftRepository.findAircraftByType(AircraftType.BOEING);
+    }
+
+
 
     /**
      * Returns a collection of all available aircrafts

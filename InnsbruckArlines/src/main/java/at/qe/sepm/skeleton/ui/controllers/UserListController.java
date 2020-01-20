@@ -23,7 +23,7 @@ public class UserListController {
     @Autowired
     private UserService userService;
 
-    private String roleFilter = "";
+    private String userrole = "";
     private String username = "";
 
     /**
@@ -32,33 +32,51 @@ public class UserListController {
      *
      * @return
      */
-    public Collection<User> getFilteredUsers(){
+    public Collection<User> getUsers(){
         if(!username.equals("")){
             return userService.getAllUsersByUsername(username);
         }
-        return userService.getAllUsersByRole(roleFilter);
+        return userService.getAllUsersByRole(userrole);
     }
 
     /**
-     * Returns a list of the staff filtered by user role/username
-     * or the entire staff if no filter is given
+     * Returns a list of users filtered by user role/username or
+     * all users if no filter is given
      *
      * @return
      */
-    public Collection<User> getFilteredStaff(){
+    public Collection<User> getStaff(){
         if(!username.equals("")){
             return userService.getAllStaffByUsername(username);
         }
-
-        return userService.getAllStaffByRole(roleFilter);
+        return userService.getAllStaff();
     }
 
-    public String getRoleFilter() {
-        return roleFilter;
+    public Collection<User> getPilots(){
+        if(!username.equals("")){
+            return userService.getAllUsersByUsername(username);
+        }
+        return userService.getAllPilots();
     }
 
-    public void setRoleFilter(String roleFilter) {
-        this.roleFilter = roleFilter;
+    public Collection<User> getCrew() {
+        if (!username.equals("")) {
+            return userService.getAllUsersByUsername(username);
+        }
+        return userService.getAllCrewMembers();
+    }
+
+    public void resetFilter(){
+        this.username = "";
+        this.userrole = "";
+    }
+
+    public String getUserrole() {
+        return userrole;
+    }
+
+    public void setUserrole(String userrole) {
+        this.userrole = userrole;
     }
 
     public String getUsername() {

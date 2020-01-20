@@ -7,28 +7,19 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/main.xhtml">
     <ui:define name ="content">
+        <h1>Crew</h1>
 
         <h:form id="selection">
             <h:panelGrid columns="4">
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="Username: "/>
-                    <p:inputText value="#{userListController.username}"/>
-                </h:panelGrid>
+                <p:outputLabel value="Username: "/>
+                <p:inputText value="#{userListController.username}"/>
                 <p:commandButton value="Find" update=":userForm"/>
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="User Role: " />
-                    <p:selectOneMenu value="#{userListController.roleFilter}">
-                        <f:selectItem itemLabel="All" itemValue=""/>
-                        <f:selectItem itemLabel="Pilot" itemValue="Pilot"/>
-                        <f:selectItem itemLabel="Cabin Staff" itemValue="Cabinstaff"/>
-                    </p:selectOneMenu>
-                </h:panelGrid>
-                <p:commandButton value="Filter" update=":userForm"/>
+                <p:commandButton value="Reset" action="#{userListController.resetFilter}" update=":selection :userForm:staffTable"/>
             </h:panelGrid>
         </h:form>
 
         <h:form id="userForm">
-            <p:dataTable id="staffTable" var="user" value="#{userListController.filteredStaff}">
+            <p:dataTable id="staffTable" var="user" value="#{userListController.crew}">
                 <p:column headerText="Username">
                     <h:outputText value="#{user.username}"/>
                 </p:column>
@@ -94,9 +85,9 @@
             </p:confirmDialog>
         </h:form>
 
-        <p:commandButton value="Add Staff" oncomplete="PF('addUserDialog').show()" />
+        <p:commandButton value="Add" oncomplete="PF('addUserDialog').show()" />
 
-        <p:dialog header="Add Staff" id="addUserDialog" widgetVar="addUserDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:dialog header="Add Crew Member" id="addUserDialog" widgetVar="addUserDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
             <p:outputPanel>
                 <h:form>
                     <h:panelGrid columns="2">
@@ -104,12 +95,6 @@
                         <p:inputText value="#{addUserController.user.username}" />
                         <p:outputLabel value="Password: " />
                         <p:password value="#{addUserController.user.password}" />
-                    </h:panelGrid>
-                    <p:separator />
-                    <p:outputLabel value="Roles: " />
-                    <h:panelGrid columns="1">
-                        <p:selectBooleanCheckbox itemLabel="Pilot" value="#{addUserController.pilot}"/>
-                        <p:selectBooleanCheckbox itemLabel="Cabin Staff" value="#{addUserController.cabinstaff}"/>
                     </h:panelGrid>
                     <p:separator />
                     <h:panelGrid columns="2">
@@ -129,7 +114,7 @@
                     </h:panelGrid>
                     <p:separator />
                     <h:panelGrid columns="2">
-                        <p:commandButton update="@form :userForm:staffTable" value="Add" action="#{addUserController.add}" oncomplete="PF('addUserDialog').hide()" />
+                        <p:commandButton update="@form :userForm:staffTable" value="Add" action="#{addUserController.addCrew}" oncomplete="PF('addUserDialog').hide()" />
                         <p:commandButton value="Abort" type="reset" onclick="PF('addUserDialog').hide()"/>
                     </h:panelGrid>
                 </h:form>

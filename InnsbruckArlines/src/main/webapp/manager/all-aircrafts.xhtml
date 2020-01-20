@@ -7,28 +7,19 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/main.xhtml">
     <ui:define name ="content">
+        <h1>Aircrafts</h1>
 
         <h:form id="selection">
             <h:panelGrid columns="4">
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="AircraftID: "/>
-                    <p:inputText value="#{aircraftListController.aircraftId}"/>
-                </h:panelGrid>
+                <p:outputLabel value="AircraftID: "/>
+                <p:inputText value="#{aircraftListController.aircraftId}"/>
                 <p:commandButton value="Find" update=":aircraftForm"/>
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="Aircraft Type: " />
-                    <p:selectOneMenu value="#{aircraftListController.aircrafttype}">
-                        <f:selectItem itemLabel="All" itemValue=""/>
-                        <f:selectItem itemLabel="Airbus" itemValue="Airbus"/>
-                        <f:selectItem itemLabel="Boeing" itemValue="Boeing"/>
-                    </p:selectOneMenu>
-                </h:panelGrid>
-                <p:commandButton value="Filter" update=":aircraftForm"/>
+                <p:commandButton value="Reset" action="#{aircraftListController.resetFilter}" update=":selection :aircraftForm:aircraftTable"/>
             </h:panelGrid>
         </h:form>
 
         <h:form id="aircraftForm">
-            <p:dataTable id="aircraftTable" var="aircraft" value="#{aircraftListController.filteredAircrafts}">
+            <p:dataTable id="aircraftTable" var="aircraft" value="#{aircraftListController.aircrafts}">
                 <p:column headerText="Aircraft ID">
                     <h:outputText value="#{aircraft.aircraftIdentification}"/>
                 </p:column>
