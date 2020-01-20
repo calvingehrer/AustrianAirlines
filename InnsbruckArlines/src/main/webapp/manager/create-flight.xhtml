@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3c.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/main.xhtml">
+    <ui:define name ="content">
+        <h1>Create Flight</h1>
+        <h:form id="createFlightForm">
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Flight Number: " />
+                <p:inputText value="#{addFlightController.flight.flightNumber}" />
+                <p:outputLabel value="From (IATA-Code): " />
+                <p:inputText value="#{addFlightController.flight.iataCodeDeparture}" />
+                <p:outputLabel value="To (IATA-Code): " />
+                <p:inputText value="#{addFlightController.flight.iataCodeArrival}" />
+                <p:outputLabel value="Departure Time: " />
+                <p:calendar value="#{addFlightController.flight.utcDepartureTime}" pattern="dd/MM/yyyy, HH:mm"/>
+                <p:outputLabel value="Arrival Time: " />
+                <p:calendar value="#{addFlightController.flight.utcArrivalTime}" pattern="dd/MM/yyyy, HH:mm"/>
+            </h:panelGrid>
+            <p:separator/>
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Used Aircraft: "/>
+                <p:commandButton value="Select" update=":aircraftForm" oncomplete="PF('selectAircraftDialog').show()" />
+            </h:panelGrid>
+            <p:separator/>
+            <h:panelGrid>
+                <p:commandButton value="Create Flight" action="#{addFlightController.add}"/>
+                <p:commandButton value="Reset Flields" type="reset"/>
+            </h:panelGrid>
+        </h:form>
+
+        <p:dialog header="Select Aircraft" id="selectAircraftDialog" widgetVar="selectAircraftDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <h:form id="aircraftForm">
+                <p:dataTable id="aircraftTable" var="aircraft" value="#{aircraftListController.getAvailableAircrafts(addFlightController.flight.iataCodeDeparture)}">
+                    <p:column headerText="Aircraft ID">
+                        <h:outputText value="#{aircraft.aircraftIdentification}"/>
+                    </p:column>
+                    <p:column headerText="Type">
+                        <h:outputText value="#{aircraft.aircraftType}"/>
+                    </p:column>
+                    <p:column headerText="Required Pilots">
+                        <h:outputText value="#{aircraft.requiredPilots}"/>
+                    </p:column>
+                    <p:column headerText="Required Crewmembers">
+                        <h:outputText value="#{aircraft.requiredCrewMembers}" />
+                    </p:column>
+                    <p:column headerText="Total Seats">
+                        <h:outputText value="#{aircraft.numberOfPassengerSeats}"/>
+                    </p:column>
+                    <p:column headerText="Location">
+                        <h:outputText value="#{aircraft.location}"/>
+                    </p:column>
+                    <p:column style="width:100px;text-align: center">
+                        <p:commandButton action="#{addFlightController.addAircraft}" oncomplete="PF('selectAircraftDialog').hide()" icon="ui-icon-check" title="Select">
+                            <f:setPropertyActionListener value="#{aircraft}" target="#{addFlightController.aircraft}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+</ui:composition>

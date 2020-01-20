@@ -1,30 +1,43 @@
 package at.qe.sepm.skeleton.model;
 
+import org.springframework.data.domain.Persistable;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class Flight implements Serializable {
+/**
+ * Entity representing Flight
+ */
+
+@Entity
+public class Flight implements Persistable<String>, Serializable {
+
+    @Id
+    @Column(length = 100)
     private String flightNumber;
-    private String iataCode;
+    private String iataCodeDeparture;
+    private String iataCodeArrival;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date utcDepartureTime;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date utcArrivalTime;
+    @Temporal(TemporalType.DATE)
     private Date dateOfFlight;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+    @Temporal(TemporalType.DATE)
+    private Date updateDate;
+    @ManyToMany
     private List<User> pilots;
+    @ManyToMany
     private List<User> groundStaff;
     private int numberOfPassengerSeats;
+    @ManyToOne
     private Aircraft usedAircraft;
-
-    public Flight(String flightNumber, String iataCode, Date utcDepartureTime, Date utcArrivalTime, Date dateOfFlight, int numberOfPassengerSeats, Aircraft usedAircraft) {
-        this.flightNumber = flightNumber;
-        this.iataCode = iataCode;
-        this.utcDepartureTime = utcDepartureTime;
-        this.utcArrivalTime = utcArrivalTime;
-        this.dateOfFlight = dateOfFlight;
-        this.numberOfPassengerSeats = numberOfPassengerSeats;
-        this.usedAircraft = usedAircraft;
-    }
+    private boolean available;
 
     public String getFlightNumber() {
         return flightNumber;
@@ -34,12 +47,20 @@ public class Flight implements Serializable {
         this.flightNumber = flightNumber;
     }
 
-    public String getIataCode() {
-        return iataCode;
+    public String getIataCodeDeparture() {
+        return iataCodeDeparture;
     }
 
-    public void setIataCode(String iataCode) {
-        this.iataCode = iataCode;
+    public void setIataCodeDeparture(String iataCode) {
+        this.iataCodeDeparture = iataCode;
+    }
+
+    public String getIataCodeArrival() {
+        return iataCodeArrival;
+    }
+
+    public void setIataCodeArrival(String iataCodeArrival) {
+        this.iataCodeArrival = iataCodeArrival;
     }
 
     public Date getUtcDepartureTime() {
@@ -66,6 +87,22 @@ public class Flight implements Serializable {
         this.dateOfFlight = dateOfFlight;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
     public List<User> getPilots() {
         return pilots;
     }
@@ -82,6 +119,7 @@ public class Flight implements Serializable {
         this.groundStaff = groundStaff;
     }
 
+
     public int getNumberOfPassengerSeats() {
         return numberOfPassengerSeats;
     }
@@ -96,5 +134,20 @@ public class Flight implements Serializable {
 
     public void setUsedAircraft(Aircraft usedAircraft) {
         this.usedAircraft = usedAircraft;
+    }
+
+    @Override
+    public String toString() {
+        return "at.qe.sepm.skeleton.model.Flight[ id=" + flightNumber + " ]";
+    }
+
+    @Override
+    public String getId(){
+        return getFlightNumber();
+    }
+
+    @Override
+    public boolean isNew(){
+        return (null == createDate);
     }
 }
