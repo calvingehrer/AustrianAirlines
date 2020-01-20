@@ -6,14 +6,13 @@
     <body>
         <ui:composition>
 
-            <div style="float: right;">
+            <h:outputStylesheet name="footer.css" library="css"/>
                 <ui:fragment rendered="#{sessionInfoBean.loggedIn}">
                     Logged in as #{sessionInfoBean.currentUserName} [#{sessionInfoBean.currentUserRoles}]
                 </ui:fragment>
                 <ui:fragment rendered="#{!sessionInfoBean.loggedIn}">
                     Not logged in
                 </ui:fragment>
-            </div>
 
         </ui:composition>
     </body>

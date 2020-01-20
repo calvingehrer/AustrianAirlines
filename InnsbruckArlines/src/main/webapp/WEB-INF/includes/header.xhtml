@@ -6,8 +6,10 @@
       xmlns:p="http://primefaces.org/ui">
     <body>
         <ui:composition>
+            <h:outputStylesheet name="menu.css" library="css"/>
             <h:form>
-                <p:menubar>
+                <div class="image"></div>
+                <p:tieredMenu style="width:250px">
                     <p:submenu label="Profile" rendered="#{sessionInfoBean.hasRole('PILOT') or sessionInfoBean.hasRole('CABINSTAFF')}">
                         <p:menuitem value="Show Profile" url="/employee/profile.xhtml"/>
                         <p:menuitem value="Schedule" url="/employee/schedule.xhtml"/>
@@ -28,8 +30,7 @@
                     </p:submenu>
                     <p:menuitem value="System Users" url="/admin/users.xhtml" rendered="#{sessionInfoBean.hasRole('ADMIN')}"/>
                     <p:menuitem value="Login" url="/login.xhtml" rendered="#{!sessionInfoBean.loggedIn}"/>
-                    <p:menuitem value="Logout" url="/logout" rendered="#{sessionInfoBean.loggedIn}"/>
-                </p:menubar>
+                </p:tieredMenu>
             </h:form>
         </ui:composition>
     </body>

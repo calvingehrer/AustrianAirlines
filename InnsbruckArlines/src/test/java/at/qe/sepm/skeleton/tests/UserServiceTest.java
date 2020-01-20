@@ -32,7 +32,7 @@ public class UserServiceTest {
     @Test
     @WithMockUser(username = "admin", authorities = {"ADMIN"})
     public void testDatainitialization() {
-        Assert.assertEquals("Insufficient amount of users initialized for test data source", 4, userService.getAllUsers().size());
+        Assert.assertEquals("Insufficient amount of users initialized for test data source", 3, userService.getAllUsers().size());
         for (User user : userService.getAllUsers()) {
             if ("admin".equals(user.getUsername())) {
                 Assert.assertTrue("User \"admin\" does not have role ADMIN", user.getRoles().contains(UserRole.ADMIN));
@@ -47,17 +47,11 @@ public class UserServiceTest {
                 Assert.assertNull("User \"user1\" has a updateUser defined", user.getUpdateUser());
                 Assert.assertNull("User \"user1\" has a updateDate defined", user.getUpdateDate());
             } else if ("user2".equals(user.getUsername())) {
-                Assert.assertTrue("User \"user2\" does not have role PILOT", user.getRoles().contains(UserRole.PILOT));
+                Assert.assertTrue("User \"user2\" does not have role EMPLOYEE", user.getRoles().contains(UserRole.EMPLOYEE));
                 Assert.assertNotNull("User \"user2\" does not have a createUser defined", user.getCreateUser());
                 Assert.assertNotNull("User \"user2\" does not have a createDate defined", user.getCreateDate());
                 Assert.assertNull("User \"user2\" has a updateUser defined", user.getUpdateUser());
                 Assert.assertNull("User \"user2\" has a updateDate defined", user.getUpdateDate());
-            } else if ("user3".equals(user.getUsername())) {
-                Assert.assertTrue("User \"user3\" does not have role CABINSTAFF", user.getRoles().contains(UserRole.CABINSTAFF));
-                Assert.assertNotNull("User \"user3\" does not have a createUser defined", user.getCreateUser());
-                Assert.assertNotNull("User \"user3\" does not have a createDate defined", user.getCreateDate());
-                Assert.assertNull("User \"user3\" has a updateUser defined", user.getUpdateUser());
-                Assert.assertNull("User \"user3\" has a updateDate defined", user.getUpdateDate());
             } else {
                 Assert.fail("Unknown user \"" + user.getUsername() + "\" loaded from test data source via UserService.getAllUsers");
             }
@@ -75,7 +69,7 @@ public class UserServiceTest {
 
         userService.deleteUser(toBeDeletedUser);
 
-        Assert.assertEquals("No user has been deleted after calling UserService.deleteUser", 3, userService.getAllUsers().size());
+        Assert.assertEquals("No user has been deleted after calling UserService.deleteUser", 2, userService.getAllUsers().size());
         User deletedUser = userService.loadUser("user1");
         Assert.assertNull("Deleted User1 could still be loaded from test data source via UserService.loadUser", deletedUser);
 
