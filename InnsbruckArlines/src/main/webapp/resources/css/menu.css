@@ -1,0 +1,34 @@
+.image{
+    content: url("/resources/images/logo.png");
+    width:300px; /*width of your image*/
+    height:100px;
+    margin-left: -40px;
+    display: flex;
+}
+
+#header {
+    background: var(--bar-bg);
+    padding: 0px 40px 75px;
+}
+
+
+
+/* change primefaces menubar*/
+
+.ui-menubar,.ui-menu{
+    margin-top: 100px;
+    background: var(--bar-bg);
+}
+
+
+.ui-menuitem-text{
+    color: var(--primary-fg);
+    padding-bottom: 30px;
+    /* line-height: 40px statt padding-bottom wenn submenü punkt geändert werden kann;*/
+}
+
+.ui-menu-child {
+    white-space: nowrap;
+    width: 200px !important;
+    background: var(--bar-bg) !important;
+}

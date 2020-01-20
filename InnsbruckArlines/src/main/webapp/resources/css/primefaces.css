@@ -1,0 +1,140 @@
+/* remove all bg images and borders */
+#page *:not(.ui-icon):not(#content),
+.ui-widget-content .ui-state-default {
+    background-image: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: none;
+    box-sizing: border-box;
+}
+
+/* display font awesome icons correctly */
+.ui-icon.fa {
+    text-indent: 0;
+    background-image:none;
+    font-size: initial;
+}
+
+/* color datatable ui icons */
+.ui-icon-check {
+    filter: brightness(0);
+}
+
+/* show datatable ui-icons correctly */
+.ui-datatable thead th,
+.ui-datatable tbody td {
+    padding: 0;
+}
+
+.ui-datatable .ui-chkbox .ui-chkbox-box.ui-widget {
+    background: var(--secondary-bg);
+}
+
+/* style the calendar view differently */
+.fc-event {
+    line-height: 5;
+    background: var(--bg-med);
+}
+
+.fc-event .fc-title {
+    margin-left: 16px
+}
+
+.fc-day {
+    border: 1px solid var(--bg-light) !important;
+}
+
+*:focus,
+*:hover,
+*:active {
+    outline: none !important;
+}
+
+.ui-messages-error {
+    color: var(--danger-fg);
+    background: var(--danger-bg);
+}
+
+/* remove styles dropdown menu */
+.ui-menu.ui-menu-dynamic {
+    padding: 0;
+    border-radius: 0;
+    border: 0;
+    position: absolute;
+}
+
+.ui-menu.ui-menu-dynamic li {
+    margin: 0;
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+
+/* radiobuttons */
+.ui-widget.ui-radiobutton-box {
+    border-radius: 50% !important;
+}
+
+/* inputs in general */
+#page .ui-widget input {
+    background: var(--bg-light);
+    padding: 0 16px;
+    height: 40px;
+}
+
+#page .ui-widget .ui-button {
+    height: 40px;
+}
+
+.ui-button {
+    margin-right: 10px;
+}
+
+.ui-button:last-of-type {
+    margin: 0;
+}
+
+
+.ui-dialog {
+    max-height: 90%;
+    overflow: scroll;
+}
+
+/* upload styles */
+.fileupload {
+    width: 100%;
+}
+
+.fileupload .ui-fileupload-buttonbar {
+    padding: 0;
+}
+
+.fileupload .ui-fileupload-content {
+    display: none;
+}
+
+.fileupload .ui-button {
+    margin: 0;
+    width: 100%;
+}
+
+.fileupload-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.fileupload-wrapper p {
+    flex: 1;
+}
+
+.fileupload-wrapper .fileupload {
+    max-width: 50%;
+}
+
+.ui-clock {
+    padding: 0;
+    background: transparent;
+}

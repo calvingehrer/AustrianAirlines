@@ -1,0 +1,50 @@
+/* outermoast panel layout */
+
+.ui-panel {
+    padding: 0;
+    background: transparent;
+    margin-bottom: 50px;
+}
+
+.ui-panel .ui-panel-titlebar {
+    padding: 0;
+    background: transparent;
+    margin-bottom: 30px;
+}
+
+.ui-panel-title {
+    color: var(--bg-dark);
+    font-size: 2.5rem;
+}
+
+.ui-panel .ui-panel-content {
+    background: white;
+    box-sizing: border-box;
+    padding: var(--default-padding);
+}
+
+
+
+/* datatable layout */
+
+.ui-widget.ui-datatable table {
+    width: 100%;
+    table-layout: auto;
+}
+
+.ui-widget.ui-datatable thead th {
+    background: var(--bg-light);
+    box-sizing: border-box;
+    height: 40px;
+    vertical-align: middle;
+}
+
+
+.ui-widget.ui-datatable tbody td:not(.noindent){
+    padding-left: 16px;
+}
+
+.ui-button-icon-only {
+    height: 100%;
+    margin: 0;
+}

@@ -2,6 +2,8 @@ package at.qe.sepm.skeleton.ui.controllers;
 
 import at.qe.sepm.skeleton.model.User;
 import at.qe.sepm.skeleton.services.UserService;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,13 +23,49 @@ public class UserListController {
     @Autowired
     private UserService userService;
 
+    private String roleFilter = "";
+    private String username = "";
+
     /**
-     * Returns a list of all users.
+     * Returns a list of users filtered by user role/username or
+     * all users if no filter is given
      *
      * @return
      */
-    public Collection<User> getUsers() {
-        return userService.getAllUsers();
+    public Collection<User> getFilteredUsers(){
+        if(!username.equals("")){
+            return userService.getAllUsersByUsername(username);
+        }
+        return userService.getAllUsersByRole(roleFilter);
     }
 
+    /**
+     * Returns a list of the staff filtered by user role/username
+     * or the entire staff if no filter is given
+     *
+     * @return
+     */
+    public Collection<User> getFilteredStaff(){
+        if(!username.equals("")){
+            return userService.getAllStaffByUsername(username);
+        }
+
+        return userService.getAllStaffByRole(roleFilter);
+    }
+
+    public String getRoleFilter() {
+        return roleFilter;
+    }
+
+    public void setRoleFilter(String roleFilter) {
+        this.roleFilter = roleFilter;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
