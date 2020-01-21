@@ -79,6 +79,10 @@ public class UserService {
         return userRepository.findByRole(UserRole.CABINSTAFF);
     }
 
+    public Collection<User> getAllAvailableStaff(UserRole role) {
+        return userRepository.findAvailableStaff(role);
+    }
+
     /**
      * Returns a list of all users with the given role
      *

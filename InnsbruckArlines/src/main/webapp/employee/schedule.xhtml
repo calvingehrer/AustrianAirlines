@@ -8,14 +8,8 @@
                 template="/WEB-INF/templates/main.xhtml">
     <ui:define name="content">
         <h1>Schedule</h1>
-        <h:form id="scheduleForm">
-            <p:growl id="messages" showDetail="true" />
-
-            <h3>Lazy Schedule</h3>
-            <p:schedule value="#{scheduler.lazyEventModel}" />
-
-        </h:form>
-
+            <p:schedule id="schedule" value="#{scheduler.eventModel}" widgetVar="myschedule">
+            </p:schedule>
     </ui:define>
 
 </ui:composition>

@@ -10,8 +10,6 @@
         <h1>Create Flight</h1>
         <h:form id="createFlightForm">
             <h:panelGrid columns="2">
-                <p:outputLabel value="Flight Number: " />
-                <p:inputText value="#{addFlightController.flight.flightNumber}" />
                 <p:outputLabel value="From (IATA-Code): " />
                 <p:inputText value="#{addFlightController.flight.iataCodeDeparture}" />
                 <p:outputLabel value="To (IATA-Code): " />
@@ -27,7 +25,7 @@
                 <p:commandButton value="Select" update=":aircraftForm" oncomplete="PF('selectAircraftDialog').show()" />
             </h:panelGrid>
             <p:separator/>
-            <h:panelGrid>
+            <h:panelGrid columns="2">
                 <p:commandButton value="Create Flight" action="#{addFlightController.add}"/>
                 <p:commandButton value="Reset Flields" type="reset"/>
             </h:panelGrid>

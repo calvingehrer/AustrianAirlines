@@ -3,8 +3,8 @@ package at.qe.sepm.skeleton.model;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -31,9 +31,9 @@ public class Flight implements Persistable<String>, Serializable {
     @Temporal(TemporalType.DATE)
     private Date updateDate;
     @ManyToMany
-    private List<User> pilots;
+    private Collection<User> pilots;
     @ManyToMany
-    private List<User> groundStaff;
+    private Collection<User> crew;
     private int numberOfPassengerSeats;
     @ManyToOne
     private Aircraft usedAircraft;
@@ -103,20 +103,20 @@ public class Flight implements Persistable<String>, Serializable {
         this.updateDate = updateDate;
     }
 
-    public List<User> getPilots() {
+    public Collection<User> getPilots() {
         return pilots;
     }
 
-    public void setPilots(List<User> pilots) {
+    public void setPilots(Collection<User> pilots) {
         this.pilots = pilots;
     }
 
-    public List<User> getGroundStaff() {
-        return groundStaff;
+    public Collection<User> getCrew() {
+        return crew;
     }
 
-    public void setGroundStaff(List<User> groundStaff) {
-        this.groundStaff = groundStaff;
+    public void setCrew(Collection<User> groundStaff) {
+        this.crew = groundStaff;
     }
 
 

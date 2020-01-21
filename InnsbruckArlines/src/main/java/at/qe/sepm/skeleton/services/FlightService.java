@@ -68,6 +68,8 @@ public class FlightService {
         newFlight.setUtcArrivalTime(flight.getUtcArrivalTime());
         newFlight.setDateOfFlight(flight.getDateOfFlight());
         newFlight.setUsedAircraft(flight.getUsedAircraft());
+        newFlight.setPilots(flight.getPilots());
+        newFlight.setCrew(flight.getCrew());
         saveFlight(newFlight);
     }
 

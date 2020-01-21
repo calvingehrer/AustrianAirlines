@@ -24,6 +24,8 @@
 .ui-menuitem-text{
     color: var(--primary-fg);
     padding-bottom: 30px;
+    font-size: larger;
+    font-weight: bolder;
     /* line-height: 40px statt padding-bottom wenn submenü punkt geändert werden kann;*/
 }
 
