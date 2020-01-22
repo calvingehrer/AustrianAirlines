@@ -1,3 +1,4 @@
+
 /* outermoast panel layout */
 
 .ui-panel {
@@ -13,15 +14,10 @@
 }
 
 .ui-panel-title {
-    color: var(--bg-dark);
-    font-size: 2.5rem;
+    color: var(--bar-bg);
+    font-size: 50px;
 }
 
-.ui-panel .ui-panel-content {
-    background: white;
-    box-sizing: border-box;
-    padding: var(--default-padding);
-}
 
 
 
@@ -33,10 +29,14 @@
 }
 
 .ui-widget.ui-datatable thead th {
-    background: var(--bg-light);
+    background: var(--secondary-bg);
     box-sizing: border-box;
     height: 40px;
-    vertical-align: middle;
+    vertical-align: after-edge;
+    text-align: left;
+    padding-left: 10px;
+    color: var(--primary-fg);
+    font-weight: bolder;
 }
 
 
@@ -48,3 +48,19 @@
     height: 100%;
     margin: 0;
 }
+
+#selection{
+    margin-bottom: 20px;
+}
+
+.addButton{
+    background: var(--primary-bg);
+    color: var(--primary-fg);
+}
+
+/* for some space when scrolling to the bottom */
+#aircraftForm, #userForm, #flightForm {
+    margin-bottom: 60px;
+}
+
+

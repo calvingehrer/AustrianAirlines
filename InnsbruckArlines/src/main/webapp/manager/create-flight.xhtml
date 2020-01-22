@@ -7,12 +7,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/main.xhtml">
     <ui:define name ="content">
+        <h:outputStylesheet name="create-flight.css" library="css"/>
         <h1>Create Flight</h1>
         <h:form id="createFlightForm">
-            <h:panelGrid columns="2">
-                <p:outputLabel value="Flight Number: " />
-                <p:inputText value="#{addFlightController.flight.flightNumber}" />
-                <p:outputLabel value="From (IATA-Code): " />
+            <h:panelGrid columns="2" styleClass="panelStyle" columnClasses="columnStyle">
+            <p:outputLabel value="From (IATA-Code): " />
                 <p:inputText value="#{addFlightController.flight.iataCodeDeparture}" />
                 <p:outputLabel value="To (IATA-Code): " />
                 <p:inputText value="#{addFlightController.flight.iataCodeArrival}" />
@@ -22,12 +21,12 @@
                 <p:calendar value="#{addFlightController.flight.utcArrivalTime}" pattern="dd/MM/yyyy, HH:mm"/>
             </h:panelGrid>
             <p:separator/>
-            <h:panelGrid columns="2">
+            <h:panelGrid columns="2" styleClass="panelStyle2" columnClasses="columnStyle">
                 <p:outputLabel value="Used Aircraft: "/>
                 <p:commandButton value="Select" update=":aircraftForm" oncomplete="PF('selectAircraftDialog').show()" />
             </h:panelGrid>
             <p:separator/>
-            <h:panelGrid>
+            <h:panelGrid columns="2" styleClass="panelStyle3" columnClasses="columnStyle">
                 <p:commandButton value="Create Flight" action="#{addFlightController.add}"/>
                 <p:commandButton value="Reset Flields" type="reset"/>
             </h:panelGrid>

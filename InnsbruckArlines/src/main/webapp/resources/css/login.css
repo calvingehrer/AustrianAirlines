@@ -41,7 +41,7 @@ h2 {
 /* style the input fields */
 input[type="text"]#username,
 input[type="password"]#password {
-    background-color: var(--bg-light);
+    background-color: white;
     width: 150px;
     padding: 8px;
 }

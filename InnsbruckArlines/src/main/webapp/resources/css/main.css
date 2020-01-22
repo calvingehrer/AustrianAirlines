@@ -6,19 +6,16 @@
     --primary-bg: #1498e2;
     --primary-fg: white;
     --bar-bg: #0e374e;
-    --danger-fg: #b94a48;
-    --danger-bg: #f2dede;
-    --bg-dark: #354052;
-    --bg-med: #7b8ba6;
-    --bg-light: #f0f1f3;
-    --secondary-bg: #d9e4eb;
-    --secondary-fg: var(--bg-dark);
-    --completed: #e0e1e8;
-    --overdue: #e8dede;
+    --secondary-bg: darkgrey;
 
 
     /* layout */
     --menu-bar-width: 300px; /* should at least be 250px */
-    --footer-width: 50px;
+    --footer-width: 80px;
     --default-padding: 30px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 32px;
 }
