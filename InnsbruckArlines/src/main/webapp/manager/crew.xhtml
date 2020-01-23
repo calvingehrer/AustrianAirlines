@@ -10,11 +10,14 @@
         <h1>Crew</h1>
 
         <h:form id="selection">
-            <h:panelGrid columns="4">
+            <h:panelGrid columns="5">
                 <p:outputLabel value="Username: "/>
                 <p:inputText value="#{userListController.username}"/>
                 <p:commandButton value="Find" update=":userForm"/>
                 <p:commandButton value="Reset" action="#{userListController.resetFilter}" update=":selection :userForm:staffTable"/>
+                <p:commandButton value="Add Staff" styleClass="addButton" oncomplete="PF('addUserDialog').show()" />
+
+
             </h:panelGrid>
         </h:form>
 
@@ -84,8 +87,6 @@
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
         </h:form>
-
-        <p:commandButton value="Add" oncomplete="PF('addUserDialog').show()" />
 
         <p:dialog header="Add Crew Member" id="addUserDialog" widgetVar="addUserDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
             <p:outputPanel>

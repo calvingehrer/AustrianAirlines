@@ -18,14 +18,15 @@
 .ui-menubar,.ui-menu{
     margin-top: 100px;
     background: var(--bar-bg);
+    border: 0 !important;
 }
 
 
 .ui-menuitem-text{
     color: var(--primary-fg);
     padding-bottom: 30px;
-    font-size: larger;
-    font-weight: bolder;
+    font-size: large;
+    font-weight: bold;
     /* line-height: 40px statt padding-bottom wenn submenü punkt geändert werden kann;*/
 }
 
@@ -33,4 +34,10 @@
     white-space: nowrap;
     width: 200px !important;
     background: var(--bar-bg) !important;
+    border: 0 !important;
+}
+
+
+#page *:not(.ui-icon):not(#content),
+.ui-widget-content .ui-state-default {
 }

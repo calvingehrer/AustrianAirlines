@@ -2,8 +2,6 @@
 #page *:not(.ui-icon):not(#content),
 .ui-widget-content .ui-state-default {
     background-image: none;
-    border: 0;
-    border-radius: 0;
     box-shadow: none;
     text-shadow: none;
     box-sizing: border-box;
@@ -32,28 +30,15 @@
 }
 
 /* style the calendar view differently */
-.fc-event {
-    line-height: 5;
-    background: var(--bg-med);
-}
 
 .fc-event .fc-title {
     margin-left: 16px
-}
-
-.fc-day {
-    border: 1px solid var(--bg-light) !important;
 }
 
 *:focus,
 *:hover,
 *:active {
     outline: none !important;
-}
-
-.ui-messages-error {
-    color: var(--danger-fg);
-    background: var(--danger-bg);
 }
 
 /* remove styles dropdown menu */
@@ -76,12 +61,6 @@
     border-radius: 50% !important;
 }
 
-/* inputs in general */
-#page .ui-widget input {
-    background: var(--bg-light);
-    padding: 0 16px;
-    height: 40px;
-}
 
 #page .ui-widget .ui-button {
     height: 40px;

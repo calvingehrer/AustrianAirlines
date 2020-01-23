@@ -8,8 +8,29 @@
                 template="/WEB-INF/templates/main.xhtml">
     <ui:define name="content">
         <h1>Schedule</h1>
-            <p:schedule id="schedule" value="#{scheduler.eventModel}" widgetVar="myschedule">
+        <h:panelGrid>
+            <p:schedule id="schedule" value="#{scheduleController.lazyEventModel}" widgetVar="scheduler" timeZone="GMT+1">
+                <p:ajax event="eventSelect" listener="#{scheduleController.selectFlight}" update="flightData" oncomplete="PF('eventDialog').show()"/>
             </p:schedule>
+        </h:panelGrid>
+
+
+        <p:dialog id="eventDialog" widgetVar="calendarDialog" header="Details" showEffect="clip" hideEffect="clip">
+            <p:panelGrid id="flightData" columns="2">
+                <p:outputLabel for="flightnumber" value="Fightnumber: " />
+                <p:inputText id="flightnumber" value="#{scheduleController.flight.flightNumber}" disabled="true"/>
+                <p:outputLabel for="departure" value="From: " />
+                <p:inputText id="departure" value="#{scheduleController.flight.iataCodeDeparture}" />
+                <p:outputLabel for="arrival" value="To: " />
+                <p:inputText id="arrival" value="#{scheduleController.flight.iataCodeArrival}"/>
+                <p:outputLabel for="departureTime" value="Departure Time: " />
+                <p:calendar id="departureTime" value="#{scheduleController.flight.utcDepartureTime}" pattern="dd/MM/yyyy, HH:mm"/>
+                <p:outputLabel for="arrivalTime" value="Arrival Time: " />
+                <p:calendar id="arrivalTime" value="#{scheduleController.flight.utcArrivalTime}" pattern="dd/MM/yyyy, HH:mm"/>
+                <h:outputLabel for="usedAircraft" value="Used Aircraft: " />
+                <p:inputText id="usedAircraft" value="#{scheduleController.flight.usedAircraft.aircraftIdentification}"/>
+            </p:panelGrid>
+        </p:dialog>
     </ui:define>
 
 </ui:composition>

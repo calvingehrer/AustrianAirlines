@@ -13,6 +13,7 @@
                     <p:submenu label="Profile" rendered="#{sessionInfoBean.hasRole('PILOT') or sessionInfoBean.hasRole('CABINSTAFF')}">
                         <p:menuitem value="Show Profile" url="/employee/profile.xhtml"/>
                         <p:menuitem value="Schedule" url="/employee/schedule.xhtml"/>
+                        <p:menuitem value="Vacation" url="/employee/create-vacation.xhtml"/>
                     </p:submenu>
                     <p:submenu label="Flights" rendered="#{sessionInfoBean.hasRole('MANAGER') or sessionInfoBean.hasRole('ADMIN')}">
                         <p:menuitem value="Show Flights" url="/manager/flights.xhtml"/>

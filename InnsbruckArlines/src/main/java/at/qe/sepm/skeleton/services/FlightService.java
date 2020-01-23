@@ -1,14 +1,17 @@
 package at.qe.sepm.skeleton.services;
 
 import at.qe.sepm.skeleton.model.Flight;
+import at.qe.sepm.skeleton.model.User;
 import at.qe.sepm.skeleton.repositories.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Service for accessing and manipulating flight data.
@@ -31,13 +34,18 @@ public class FlightService {
         return flightRepository.findAll();
     }
 
+    @PreAuthorize("hasAuthority('PILOT') or hasAuthority('CABINSTAFF')")
+    public Collection<Flight> getAllFlightsPerStaff(User staff){
+        return flightRepository.getFlightsByStaff(staff);
+    }
+
     /**
      * Loads a single flight identified by its flightnumber.
      *
      * @param flightNumber the flightnumber to search for
      * @return the user with the given username
      */
-    @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
     public Flight loadFlight(String flightNumber) {
         return flightRepository.findFirstByFlightNumber(flightNumber);
     }

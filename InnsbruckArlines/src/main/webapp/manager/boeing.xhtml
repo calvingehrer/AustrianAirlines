@@ -10,11 +10,12 @@
         <h1>Boeing</h1>
 
         <h:form id="selection">
-            <h:panelGrid columns="4">
+            <h:panelGrid columns="5">
                 <p:outputLabel value="AircraftID: "/>
                 <p:inputText value="#{aircraftListController.aircraftId}"/>
                 <p:commandButton value="Find" update=":aircraftForm"/>
                 <p:commandButton value="Reset" action="#{aircraftListController.resetFilter}" update=":selection :aircraftForm:aircraftTable"/>
+                <p:commandButton value="Add Aircraft" styleClass="addButton" oncomplete="PF('addAircraftDialog').show()" />
             </h:panelGrid>
         </h:form>
 
@@ -86,8 +87,6 @@
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
         </h:form>
-
-        <p:commandButton value="Add Aircraft" oncomplete="PF('addAircraftDialog').show()" />
 
         <p:dialog header="Add Aircraft" id="addAircraftDialog" widgetVar="addAircraftDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
             <p:outputPanel>
