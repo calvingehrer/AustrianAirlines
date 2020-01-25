@@ -51,11 +51,21 @@ public class User implements Persistable<String>, Serializable {
     private String businessNumber;
 
     boolean enabled;
+    private String location;
 
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "User_UserRole")
     @Enumerated(EnumType.STRING)
     private Set<UserRole> roles;
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getUsername() {
         return username;

@@ -68,8 +68,8 @@ public class AircraftService {
      * @return
      */
     @PreAuthorize("hasAuthority('MANAGER') or hasAuthority('ADMIN')")
-    public Collection<Aircraft> getAllAvailableAircrafts(String location){
-        return aircraftRepository.findByLocation(location);
+    public Collection<Aircraft> getAllAvailableAircrafts(String iataCodeDeparture, Date utcDepartureTime){
+        return aircraftRepository.findByLocationAndDate(iataCodeDeparture, utcDepartureTime);
     }
 
 

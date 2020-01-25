@@ -35,7 +35,7 @@
 
         <p:dialog header="Select Aircraft" id="selectAircraftDialog" widgetVar="selectAircraftDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
             <h:form id="aircraftForm">
-                <p:dataTable id="aircraftTable" var="aircraft" value="#{aircraftListController.getAvailableAircrafts(addFlightController.flight.iataCodeDeparture)}">
+                <p:dataTable id="aircraftTable" var="aircraft" value="#{aircraftListController.getAvailableAircrafts(addFlightController.flight)}">
                     <p:column headerText="Aircraft ID">
                         <h:outputText value="#{aircraft.aircraftIdentification}"/>
                     </p:column>

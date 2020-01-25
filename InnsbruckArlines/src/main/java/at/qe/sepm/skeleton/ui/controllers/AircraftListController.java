@@ -2,6 +2,7 @@ package at.qe.sepm.skeleton.ui.controllers;
 
 import at.qe.sepm.skeleton.model.Aircraft;
 import at.qe.sepm.skeleton.model.AircraftType;
+import at.qe.sepm.skeleton.model.Flight;
 import at.qe.sepm.skeleton.services.AircraftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -64,8 +65,8 @@ public class AircraftListController {
      *
      * @return
      */
-    public Collection<Aircraft> getAvailableAircrafts(String location) {
-        return aircraftService.getAllAvailableAircrafts(location);
+    public Collection<Aircraft> getAvailableAircrafts(Flight flight) {
+        return aircraftService.getAllAvailableAircrafts(flight.getIataCodeDeparture(), flight.getUtcDepartureTime());
     }
 
     public void resetFilter(){

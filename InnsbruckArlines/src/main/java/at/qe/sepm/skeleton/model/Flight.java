@@ -34,10 +34,14 @@ public class Flight implements Persistable<String>, Serializable {
     private List<User> pilots;
     @ManyToMany
     private List<User> groundStaff;
+    @ManyToMany
+    private List<User> cabinStaff;
     private int numberOfPassengerSeats;
     @ManyToOne
     private Aircraft usedAircraft;
     private boolean available;
+
+
 
     public String getFlightNumber() {
         return flightNumber;
@@ -106,9 +110,32 @@ public class Flight implements Persistable<String>, Serializable {
     public List<User> getPilots() {
         return pilots;
     }
+    /*public String getPilot(){
+        return pilots.get(0).getFirstName();
+    }*/
 
-    public void setPilots(List<User> pilots) {
-        this.pilots = pilots;
+    public void setPilots(List<User> pilots, int requiredPilots) {
+        for(int i = 0; i < requiredPilots; i++){
+            if(!pilots.isEmpty()){
+                this.pilots.add(pilots.get(i));
+                pilots.remove(i);
+            }
+            else{
+                break;
+            }
+        }
+    }
+
+    public void setCabinStaff(List<User> cabinStaff, int requiredCabinStaff) {
+        for(int i = 0; i < requiredCabinStaff; i++){
+            if(!cabinStaff.isEmpty()){
+                this.cabinStaff.add(cabinStaff.get(i));
+            }
+            else{
+                break;
+            }
+
+        }
     }
 
     public List<User> getGroundStaff() {

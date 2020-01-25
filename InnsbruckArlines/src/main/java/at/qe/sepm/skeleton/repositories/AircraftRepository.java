@@ -7,6 +7,7 @@ import at.qe.sepm.skeleton.model.UserRole;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,5 +31,8 @@ public interface AircraftRepository extends AbstractRepository<Aircraft, String>
 
     @Query("SELECT a FROM Aircraft a WHERE a.aircraftIdentification LIKE CONCAT(:aircraftIdPrefix, '%')")
     List<Aircraft> findAircraftByIdPrefix(@Param("aircraftIdPrefix") String aircraftIdPrefix);
+
+    @Query("SELECT a FROM Aircraft a left join Flight f ON a.aircraftIdentification = f.usedAircraft.aircraftIdentification WHERE a.location = :location AND (f.utcArrivalTime < :date OR f.flightNumber = null)")
+    List<Aircraft> findByLocationAndDate(@Param("location") String location, @Param("date") Date date);
 
 }

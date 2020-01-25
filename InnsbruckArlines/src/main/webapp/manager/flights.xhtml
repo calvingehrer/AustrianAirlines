@@ -35,6 +35,10 @@
                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                     </h:outputText>
                 </p:column>
+                <!-- <p:column headerText="Pilots">
+                    <h:outputText value="#{flight.pilot}">
+                    </h:outputText>
+                </p:column> -->
                 <p:column style="width:100px;text-align: center">
                     <p:commandButton update=":flightForm:flightEditDialog" oncomplete="PF('flightEditDialog').show()" icon="ui-icon-note" title="Edit">
                         <f:setPropertyActionListener value="#{flight}" target="#{flightDetailController.flight}" />
