@@ -50,6 +50,7 @@ public class User implements Persistable<String>, Serializable {
     private String email;
     private String businessNumber;
 
+
     boolean enabled;
 
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)

@@ -22,10 +22,13 @@ public class AddAircraftController {
 
     private String aircraftType;
 
+    private static int autoIncrementId = 17;
+
     /**
      * Action to add the aircraft to the system
      */
     public void add() {
+        setAutoincrementId();
         if (aircraftType.equals("Boeing")){
             aircraft.setAircraftType(AircraftType.BOEING);
         }else if (aircraftType.equals("Airbus")){
@@ -35,6 +38,17 @@ public class AddAircraftController {
         aircraftService.addNewAircraft(aircraft);
         this.aircraft = new Aircraft();
         aircraftType = null;
+    }
+
+    public void setAutoincrementId () {
+        if(autoIncrementId < 10) {
+            aircraft.setAircraftIdentification("A000" + autoIncrementId);
+        } else if (autoIncrementId < 100) {
+            aircraft.setAircraftIdentification("A00" + autoIncrementId);
+        } else {
+            aircraft.setAircraftIdentification("A0" + autoIncrementId);
+        }
+        autoIncrementId++;
     }
 
     public Aircraft getAircraft() {
