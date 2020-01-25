@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * Spring configuration for web security.
@@ -55,8 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login.xhtml")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/secured/welcome.xhtml");
-        // :TODO: user failureUrl(/login.xhtml?error) and make sure that a corresponding message is displayed
+                .defaultSuccessUrl("/secured/welcome.xhtml")
+        // :TODO: use failureUrl(/login.xhtml?error) and make sure that a corresponding message is displayed
+                .failureUrl("/login.xhtml?error=true");
 
         http.exceptionHandling().accessDeniedPage("/error/denied.xhtml");
 
@@ -75,6 +77,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public static PasswordEncoder passwordEncoder() {
         // :TODO: use proper passwordEncoder and do not store passwords in plain text
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }

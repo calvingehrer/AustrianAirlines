@@ -1,0 +1,5 @@
+/* css file for screen after login and logout */
+:not(#content) {
+    border: 0;
+
+}

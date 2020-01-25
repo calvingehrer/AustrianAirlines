@@ -2,6 +2,8 @@ package at.qe.sepm.skeleton.ui.controllers;
 
 import at.qe.sepm.skeleton.model.User;
 import at.qe.sepm.skeleton.services.UserService;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,13 +23,67 @@ public class UserListController {
     @Autowired
     private UserService userService;
 
+    private String userrole = "";
+    private String username = "";
+
     /**
-     * Returns a list of all users.
+     * Returns a list of users filtered by user role/username or
+     * all users if no filter is given
      *
      * @return
      */
-    public Collection<User> getUsers() {
-        return userService.getAllUsers();
+    public Collection<User> getUsers(){
+        if(!username.equals("")){
+            return userService.getAllUsersByUsername(username);
+        }
+        return userService.getAllUsersByRole(userrole);
     }
 
+    /**
+     * Returns a list of users filtered by user role/username or
+     * all users if no filter is given
+     *
+     * @return
+     */
+    public Collection<User> getStaff(){
+        if(!username.equals("")){
+            return userService.getAllStaffByUsername(username);
+        }
+        return userService.getAllStaff();
+    }
+
+    public Collection<User> getPilots(){
+        if(!username.equals("")){
+            return userService.getAllUsersByUsername(username);
+        }
+        return userService.getAllPilots();
+    }
+
+    public Collection<User> getCrew() {
+        if (!username.equals("")) {
+            return userService.getAllUsersByUsername(username);
+        }
+        return userService.getAllCrewMembers();
+    }
+
+    public void resetFilter(){
+        this.username = "";
+        this.userrole = "";
+    }
+
+    public String getUserrole() {
+        return userrole;
+    }
+
+    public void setUserrole(String userrole) {
+        this.userrole = userrole;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

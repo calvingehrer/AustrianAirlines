@@ -1,0 +1,46 @@
+/* for create-flight */
+
+/* editing the box */
+
+#createFlightForm {
+    background: var(--secondary-bg);
+    width: 450px;
+}
+
+/* alignment of the table */
+
+.panelStyle{
+    padding-left: 30px;
+    padding-top: 15px;
+    column-gap: 50px;
+}
+
+/* height and width per field */
+
+.columnStyle {
+    width: 170px;
+    height: 40px;
+}
+
+ /* 2 different styles for the bottom 2 rows of the table */
+.panelStyle2{
+    padding-left: 30px;
+}
+
+.panelStyle3{
+    padding-left: 30px;
+    padding-bottom: 20px;
+
+}
+
+/* change colors of the buttons */
+
+.ui-button .ui-button-text {
+    color: var(--primary-fg);
+    background: var(--primary-bg);
+    font-weight: bold;
+}
+
+
+
+

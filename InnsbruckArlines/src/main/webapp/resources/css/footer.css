@@ -1,0 +1,7 @@
+#footer {
+    background: var(--secondary-bg);
+    line-height: 100px;
+    padding-left: 80px;
+    font-size: larger;
+    color: var(--primary-fg);
+}

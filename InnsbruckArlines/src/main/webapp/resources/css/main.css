@@ -1,0 +1,21 @@
+
+/* its nice that primefaces doesn't allow for css import statements in the imported css files (/s) */
+
+:root {
+    /* colors */
+    --primary-bg: #1498e2;
+    --primary-fg: white;
+    --bar-bg: #0e374e;
+    --secondary-bg: darkgrey;
+
+
+    /* layout */
+    --menu-bar-width: 300px; /* should at least be 250px */
+    --footer-width: 80px;
+    --default-padding: 30px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 32px;
+}

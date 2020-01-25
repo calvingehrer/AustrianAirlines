@@ -1,0 +1,38 @@
+
+html {
+    overflow: hidden;
+}
+
+#page {
+    width: calc(100% - var(--menu-bar-width));
+    height: 100vh;
+    margin-left: var(--menu-bar-width);
+    margin-top: var(--footer-width);
+    overflow: scroll;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#header {
+    position: fixed;
+    width: var(--menu-bar-width);
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#content {
+    width: 90%;
+    max-height: 85%;
+    overflow: scroll;
+}
+
+#footer {
+    position: absolute;
+    width: var(--footer-width);
+    height: 99px;
+    width: 100%;
+    top: 0;
+    left: 300px;
+}
