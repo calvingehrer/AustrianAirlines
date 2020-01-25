@@ -6,6 +6,7 @@ import at.qe.sepm.skeleton.model.User;
 import at.qe.sepm.skeleton.model.UserRole;
 import at.qe.sepm.skeleton.services.AircraftService;
 import at.qe.sepm.skeleton.services.FlightService;
+import at.qe.sepm.skeleton.services.UserMailService;
 import at.qe.sepm.skeleton.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -24,6 +25,8 @@ public class AddFlightController {
     private AircraftService aircraftService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMailService userMailService;
 
     private static int autoIncrementId = 4;
 
@@ -85,6 +88,8 @@ public class AddFlightController {
             User staff = allAvailableStaff.iterator().next();
             allocatedStaff.add(staff);
             allAvailableStaff.remove(staff);
+            //userMailService.sendMailTo(staff, "New Flight Event", "Dear " + staff.getFirstName() + "\n\n you have been added to flight "
+            //        + this.flight.getFlightNumber() + " starting at " + this.flight.getUtcDepartureTime() + ".\n\nHave a safe flight,\n Innsbruck Airlines Service Team");
         }
         return allocatedStaff;
     }
