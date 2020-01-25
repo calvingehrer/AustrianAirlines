@@ -1,0 +1,34 @@
+
+*,
+*::placeholder,
+.ui-widget,
+.ui-widget select {
+    font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 1.05rem;
+    font-weight: 300;
+
+    -webkit-font-smoothing: antialiased;
+}
+
+
+
+#content {
+    scrollbar-width: none;
+    overflow-y: auto !important;
+    overflow-y: overlay;
+    overflow: -moz-scrollbars-none;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    background: url("/resources/images/background.jpg") no-repeat center center;
+    background-size: cover;
+}
+
+.hidden {
+    display: none;
+}
