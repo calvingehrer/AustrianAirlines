@@ -38,16 +38,6 @@ public class AddFlightController {
      * Action to add the flight to the system
      */
     public void add(){
-        //aircraft.setAvailable(false);
-        //aircraft.setPilots(userService.getPilotsByLocation(flight.getIataCodeDeparture()), aircraft.getRequiredPilots());
-
-        List<User> listOfAllPilotsLocation = new ArrayList<>();
-        listOfAllPilotsLocation.addAll(userService.getPilotsByLocation(flight.getIataCodeDeparture()));
-        flight.setPilots(listOfAllPilotsLocation, aircraft.getRequiredPilots());
-
-        List<User> listOfAllCrewmembwersLocation= new ArrayList<>();
-        listOfAllCrewmembwersLocation.addAll(userService.getAllCrewMembersByLocation(flight.getIataCodeDeparture()));
-        flight.setCabinStaff(listOfAllCrewmembwersLocation,aircraft.getRequiredCrewMembers());
 
         aircraftService.saveAircraft(aircraft);
         flightService.addNewFlight(flight);

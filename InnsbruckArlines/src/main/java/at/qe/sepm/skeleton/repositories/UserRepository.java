@@ -25,9 +25,6 @@ public interface UserRepository extends AbstractRepository<User, String> {
     @Query("SELECT u FROM User u WHERE :role MEMBER OF u.roles")
     List<User> findByRole(@Param("role") UserRole role);
 
-    @Query("SELECT u FROM User u WHERE :role MEMBER OF u.roles AND u.location = :location")
-    List<User> findByRoleAndLocation(@Param("role") UserRole role, @Param("location") String location);
-
     @Query("SELECT u FROM User u WHERE :role1 MEMBER OF u.roles OR :role2 MEMBER OF u.roles")
     List<User> findByTwoRoles(@Param("role1") UserRole role1, @Param("role2") UserRole role2);
 

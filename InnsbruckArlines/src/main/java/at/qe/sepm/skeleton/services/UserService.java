@@ -70,10 +70,7 @@ public class UserService {
     }
 
 
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
-    public Collection<User> getPilotsByLocation(String iataCodeDeparture){
-        return userRepository.findByRoleAndLocation(UserRole.PILOT, iataCodeDeparture);
-    }
+
 
     /**
      * Returns all pilots
@@ -85,11 +82,6 @@ public class UserService {
         return userRepository.findByRole(UserRole.CABINSTAFF);
     }
 
-
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('MANAGER')")
-    public Collection<User> getAllCrewMembersByLocation(String iataCodeDeparture){
-        return userRepository.findByRoleAndLocation(UserRole.CABINSTAFF, iataCodeDeparture);
-    }
 
     /**
      * Returns a list of all users with the given role
